@@ -1,0 +1,47 @@
+@model editCatAsssociationWrapper
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>edit Product</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <h1>@Model.currCategory.Name</h1>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                @{
+                <ul>
+                    @foreach(var cat in @Model.currCategory.ProductswithCategories)
+                    {
+                        <li>@cat.Product.Name</li>
+                    }
+                </ul>
+                }
+            </div>
+            <div class="col-sm-6">
+                <div class="row">
+                    <h3>Add Product:</h3>
+                </div>
+                <form asp-action="newCatAssociation" asp-controller="Home" asp-route-CategoryId="@Model.currCategory.CategoryId" method="post">
+                @{
+                <select asp-for="association.ProductId">  
+                    @foreach(var cat in Model.AllProducts)
+                    {
+                        <option value="@cat.ProductId">@cat.Name</option>
+                    }
+                </select>
+                    }
+
+                    <input type="submit" value="Add Product">
+                </form>
+
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

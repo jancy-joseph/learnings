@@ -1,0 +1,49 @@
+@model editProdAssociationWrapper
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>edit Product</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <h1>@Model.currProduct.Name</h1>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                @{
+                <ul>
+                    @foreach(var cat in @Model.currProduct.CategoriesInProducts)
+                    {
+                        <li>@cat.Category.Name</li>
+                    }
+                </ul>
+                }
+            </div>
+            <div class="col-sm-6">
+                <div class="row">
+                    <h3>Add category:</h3>
+                </div>
+                <form asp-action="newAssociation" asp-controller="Home" asp-route-ProductId="@Model.currProduct.ProductId" method="post">
+                @{
+                <select asp-for="association.CategoryId">  
+                    @foreach(var cat in Model.AllCategory)
+                    {
+                        <option value="@cat.CategoryId">@cat.Name</option>
+                    }
+                </select>
+                    }
+
+                    <input type="submit" value="Add Category">
+                </form>
+
+            </div>
+        </div>
+    </div>
+    
+    
+    
+</body>
+</html>

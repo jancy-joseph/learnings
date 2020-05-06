@@ -1,0 +1,55 @@
+@model CategoryWrapper
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShowAll Categories</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col text-right">
+                <h3><a href="/">Products</a></h3>
+            </div>
+            <div class="col text-right">
+                <h3><a>Categories</a></h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group row">
+                    <h1>Add newCategory</h1>
+                </div>
+                <form asp-action="createNewCategory" asp-controller="Home" asp-method="post">
+                <div class="form-group">
+                    <span class="col-sm-12" asp-validation-for="newCategory.Name"></span>
+                    <label class="col-sm-4">Name of Categoryt: </label>
+                    <input class="col-sm-8 form-control" asp-for="newCategory.Name">
+                </div>
+                <div class="form-group row align-items-right">
+                    <input type="submit" value="Add Category">
+                </div>
+            </form>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group row">
+                    <h1>Exsiting Categories</h1>
+                </div>
+                <div class="form-group-row">
+                @{
+                    <ul>
+                    @foreach(var cat in @Model.AllCategories)
+                    {
+                        <li> <a href="/edit/@cat.CategoryId">@cat.Name</a></li>
+                    }
+                    </ul>
+                }
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

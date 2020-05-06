@@ -1,0 +1,65 @@
+@model ProductWrapper
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show All Products</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col text-right">
+                <h3><a>Products</a></h3>
+            </div>
+            <div class="col text-right">
+                <h3><a href="/ARSAllCat">Categories</a></h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group row">
+                    <h1>Add newProduct</h1>
+                </div>
+                <form asp-action="createNewProduct" asp-controller="Home" asp-method="post">
+                <div class="form-group">
+                    <span class="col-sm-12" asp-validation-for="newProduct.Name"></span>
+                    <label class="col-sm-4">Name of product: </label>
+                    <input class="col-sm-8 form-control" asp-for="newProduct.Name">
+                </div>
+                <div class="form-group">
+                    <span class="col-sm-12" asp-validation-for="newProduct.Description"></span>
+                    <label class="col-sm-4">Description: </label>
+                    <input class="col-sm-8 form-control" asp-for="newProduct.Description">
+                </div>
+                <div class="form-group">
+                    <span class="col-sm-12" asp-validation-for="newProduct.Price"></span>
+                    <label class="col-sm-4">Price: </label>
+                    <input type="number" class="col-sm-8 form-control" asp-for="newProduct.Price">
+                </div>
+                <div class="form-group row align-items-right">
+                    <input type="submit" value="Add Product">
+                </div>
+            </form>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group row">
+                    <h1>Exsiting Products</h1>
+                </div>
+                <div class="form-group-row">
+                @{
+                    <ul>
+                    @foreach(var prod in @Model.AllProducts)
+                    {
+                        <li><a href="/edit/@prod.ProductId">@prod.Name</a></li>
+                    }
+                    </ul>
+                }
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

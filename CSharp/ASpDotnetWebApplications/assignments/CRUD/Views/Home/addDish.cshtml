@@ -1,0 +1,66 @@
+@model Dish
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>addDish</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <h1>Add a new Dish!</h1>
+            <a href="/">Home</a>
+        </div>
+        <div class="row">
+            <form asp-action="createDish" asp-controller="Home" asp-method="post">
+                <div class="col">
+                    <div class="form-group row">
+                        <span class="col-sm-12" asp-validation-for="Chef"></span>
+                        <label class="col-sm-4" asp-for="Chef">Chef's Name:</label>
+                        <input type="text" class ="col-sm-8 form-control" asp-for="Chef">
+                    </div>
+                    <div class="form-group row">
+                        <span class="col-sm-12" asp-validation-for="Name"></span>
+                        <label class="col-sm-4" asp-for="Name">Name of Dish</label>
+                        <input type="text" class ="col-sm-8 form-control" asp-for="Name">
+                    </div>
+                    <div class="form-group row">
+                        <span class="col-sm-12" asp-validation-for="Calories"></span>
+                        <label class="col-sm-4" asp-for="Calories"># of Calories:</label>
+                        <input type="number" class ="col-sm-8 form-control" asp-for="Calories">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group row">
+                        <label class="col-sm-4" asp-for="Tastiness">Tastiness:</label>
+                        <select asp-for="Tastiness">
+                            @{
+                                for(int i=1; i<6; i++)
+                                {
+                                    <option value="@i">@i</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group row">
+                        <span class="col-sm-12" asp-validation-for="Description"></span>
+                        <label class="col-sm-4" asp-for="Description">Description</label>
+                        <textarea class ="col-sm-8 form-control" asp-for="Description" >
+                        </textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group row">
+                        <input type="submit" value="Add a Dish">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+</body>
+</html>
