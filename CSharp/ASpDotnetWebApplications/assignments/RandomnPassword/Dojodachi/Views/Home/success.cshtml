@@ -1,0 +1,36 @@
+@model Dojodachi.Models.djdachi
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <p>Fullness : @Model.Fullness Happiness : @Model.Happiness Meals : @Model.Meals  Energy: @Model.Energy</p>
+        <p>@Model.mystring</p>
+        @{
+            if(@Model.showBtnFlag == true)
+            {
+                <form action="gameRestart" method="post">
+                    <input type="submit" value="Restart?"> 
+               </form>
+            }
+            else
+            {
+                <form action="feed" method="post">
+                    <input type="submit" value="Feed"> 
+                </form>
+                <form action="play" method="post">
+                    <input type="submit" value="Play"> 
+                </form>
+                <form action="work" method="post">
+                    <input type="submit" value="Work"> 
+                </form>
+                <form action="sleep" method="post">
+                    <input type="submit" value="Sleep"> 
+                </form>
+            }
+        }
+</body>
+</html>

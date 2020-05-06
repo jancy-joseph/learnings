@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Display</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="container">
+        <div class="row offset-5">
+            <h1>The Current Date and Time is</h1>
+        </div>
+        @{
+        var daterow1 =DateTime.Now.ToString("MMMM dd yyyy");
+        var daterow2 = DateTime.Now.ToString("h:mm tt");
+        <div class ="row 6 offset-7">
+            <textarea class="col-sm-12 form-control w-100 h-100 text-bold" type="text" name="message" rows="2">
+                    @daterow1
+                    @daterow2
+            </textarea>
+        </div>  
+        }
+
+    </div>
+
+</body>
+</html>
