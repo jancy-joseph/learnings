@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {ICurrentWeather} from './icurrent-weather';
+
 
 @Component({
   selector: 'app-root',
