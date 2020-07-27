@@ -1,0 +1,1857 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)http://learn.codingdojo.com/m/130/6668/48262 -->
+<html lang="en" class=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Deployment                  | MERN Deployment</title>
+    <link href="http://learn.codingdojo.com/assets/black_ninja-db2fe4f1051012ab89c235cc9bf3cd5a.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
+    <link href="./Deployment _ MERN Deployment_files/chapter_modules_layout-85c93b64d8aba9ef1f2eaac46360c478.css" media="all" rel="stylesheet">
+    <link href="./Deployment _ MERN Deployment_files/modules_layout-b55a981b5e7bcfee89d6f5bcaf7cb362.css" media="all" rel="stylesheet">
+
+
+    <script type="text/javascript" async="" src="./Deployment _ MERN Deployment_files/rpf3h5c2"></script><script type="text/javascript" id="www-widgetapi-script" src="./Deployment _ MERN Deployment_files/www-widgetapi.js.download" async=""></script><script id="iframe-demo" src="./Deployment _ MERN Deployment_files/iframe_api"></script><script async="" src="./Deployment _ MERN Deployment_files/analytics.js.download"></script><script src="./Deployment _ MERN Deployment_files/chapter_modules_scripts-7c446bf8cbfe603895c9e0634ad08bb1.js.download"></script><style></style>
+    <script src="./Deployment _ MERN Deployment_files/modules_scripts-008d82d72d466555eb4f1c9b102f1409.js.download"></script>
+
+    <meta content="authenticity_token" name="csrf-param">
+<meta content="lSEy3SfDy7QkSGoa09fnaNHoPnXg+hZ3c9YZU/IIO9w=" name="csrf-token">
+    <script>
+//<![CDATA[
+var AUTH_TOKEN = 'lSEy3SfDy7QkSGoa09fnaNHoPnXg+hZ3c9YZU/IIO9w=';
+//]]>
+</script>
+    
+      <script src="https://learn.codingdojo.com:8787/socket.io/socket.io.js" type="text/javascript"></script>
+
+    <script src="./Deployment _ MERN Deployment_files/player.js.download"></script>
+
+        <!-- Google Analytics -->
+        <script type="text/javascript">
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+                ga('create', "UA-115891107-1", 'auto');
+
+			ga('set', 'userId', 93391); 
+			
+            ga('send', 'pageview');
+        </script>
+
+    <!-- GA EVENT TRACKING -->
+    <script type="text/javascript"> 	
+		function send_ga_event(category, action, label) {
+			if(typeof ga != "undefined") {
+				ga('send', 'event', category, action, label);
+			}
+		}
+    </script>
+
+    <!-- USER TRACKING -->
+	    <script type="text/javascript">
+	var on_download = false;
+	var yt_videos   = []; 
+	var params_data = get_page_subdata_params();
+	var user_session_page_id;
+
+	$(document).on('ready', function(){
+
+		var yt_count = 0;
+		$('#module_container iframe').each(function(){
+		    src = this.src;
+		    this.src = src+'?enablejsapi=1'
+		    yt_count += 1;
+
+		    $(this).attr("id", "yt_video_" + yt_count);
+		    yt_videos.push("yt_video_" + yt_count);
+		});
+
+		// USER PAGE VIEWS TRACKING
+		$.post('/create_new_session_page', params_data, function(result) {
+			user_session_page_id = result.user_session_page_id;
+
+			window.onbeforeunload = function() {
+				$.ajax({
+					url:   '/update_user_session_page',
+					type:  'POST',
+					async: false,
+					data:  {"user_session_page_id" : user_session_page_id },
+					success: function() {
+
+					}
+				});
+			}
+		}, "json");
+
+		// USER ACTIVITY TRACKING ON CHAPTER MODULES
+	
+			setTimeout(function(){
+				if ( ($('iframe').attr('src').toLowerCase().indexOf("vimeo")) != -1 ) {
+					var iframe = document.querySelector('iframe');
+				    var player = new Vimeo.Player(iframe);
+
+				    player.on('play', function() {
+				        save_activity_log(1.1, null);
+				    });
+
+				    player.on('pause', function() {
+				        save_activity_log(1.2, null);
+				    });
+				}
+			}, 1000);
+
+			$('body').on('click', '#copy-toolbar', function(){
+				save_activity_log(1.4, null);
+			});
+
+			$('body').on('click', '.show_checklist_btn', function(){
+				save_activity_log(4.1, null);
+			});
+
+			$('.module_description').on('click', 'a', function(){
+				// save_activity_log(1.3, $(this).attr("href"));
+				save_activity_log(1.3, null);
+			});
+
+			$("#start_working_modal").on("click", "#discontinue_task_btn", function(){
+				if($(this).attr("href") != "#") {
+					// save_activity_log(1.3, $(this).attr("href"));
+					save_activity_log(1.3, null);
+				}
+			});
+			
+			$("body").on("click", "#checklist_body .download_link_btn", function(){
+				if($(this).attr("href") != "#") {
+					on_download = true;
+					save_activity_log(4.2, null);
+					// save_activity_log(4.2, $(this).attr("href"));
+				}
+			});
+
+			$("body").on("click", "#checklist_body .github_link_btn", function(){
+				if($(this).attr("href") != "#") {
+					// save_activity_log(4.3, $(this).attr("href"));
+					save_activity_log(4.3, null);
+				}
+			});
+
+			$("body").on("click", "#module_container #answersheet", function(){
+				save_activity_log(2.3, null);
+			});
+    });
+
+	
+	function save_activity_log(activity_log_id, link) {
+
+		$.post('/create_activity_log', { 
+			activity_log_id : activity_log_id, 
+			params_data : params_data, 
+			link : link, 
+			user_session_page_id: user_session_page_id }, 
+		function(result) {
+			on_download = false;
+		}, "json");
+	}
+
+	function get_page_subdata_params() {
+		var params_data = {
+			"page_title" 	  : document.title, 
+			"page_url"   	  : window.location.pathname,
+			"page_type_id" 	  : 1,
+		}
+
+			params_data = {
+				"page_title"  	  : document.title, 
+				"page_url"    	  : window.location.pathname,
+				"track_id"	  	  : 130,
+				"course_id"	 	  : 2120,
+				"chapter_id"	  : 6668,
+				"module_id"	 	  : 48262,
+				"page_type_id" 	  : 2
+			}
+
+		return params_data;
+	}
+</script>
+
+		<!-- INTERCOM PIXEL -->
+    <script>
+        window.intercomSettings = {
+            app_id: "rpf3h5c2"
+        };
+    </script>
+    <script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',w.intercomSettings);}else{var d=document;var i=function(){i.c(arguments);};i.q=[];i.c=function(args){i.q.push(args);};w.Intercom=i;var l=function(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/rpf3h5c2';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();</script>
+
+
+	
+<style type="text/css">.fancybox-margin{margin-right:17px;}</style></head>
+<body>
+<script type="text/javascript">
+	var io;
+</script>
+
+<input type="checkbox" id="activate_menu_checkbox" class="hidden" checked="checked">
+
+<div id="menu_button">
+		<label for="activate_menu_checkbox" class="glyphicon glyphicon-menu-hamburger"></label>
+		<a href="http://learn.codingdojo.com/dashboard#tracks_container" class="button_text unload_link">
+			<div class="track_button">
+				Back to Tracks
+			</div>
+		</a>
+</div>  
+
+<div class="hidden_chapter_title hidden"></div>
+<div id="sidebar" class="nano  has-scrollbar" style="height: 100px;">
+	
+	<ul id="chapter_list" class="nano-content  chapter-list" data-track-id="130" data-course-id="2120" tabindex="0" style="right: -17px;">
+
+			<li class=" active">
+				
+				<a class="chapter_title unload_link" data-chapter-module="48262" href="http://learn.codingdojo.com/m/130/6668">
+					<h3><span class="chapter-title"> 1. MERN Deployment </span></h3>
+
+						<div class="progress_container">
+							<span class="chapter_item_progress">
+								0%
+							</span>
+						</div>
+				</a>
+				<ul class="tab_list  module-list" id="module_list_6668" data-chapter-id="6668">
+
+
+							<li class="text  current " data-module-type="text" data-module-id="48262" data-chapter-id="6668" data-is-duplicate="0" data-program-type="[1,3]" data-first_module="" data-container="body">
+
+
+
+									<a class="tab_title unload_link" href="javascript:void(0)">
+
+									<div class="tab_label">
+										<span class="tab_icon sort_tab_icon"></span>
+									</div>
+
+									<span class="tab_details" id="quiz_id_48262">
+										<h4>Deployment                  </h4> <!-- % if contents["type"] == QUIZ_MODULE % -->
+									</span>
+								</a>
+							</li>							
+								<li class="survey completed_tab " data-module-type="survey" data-module-id="" data-chapter-id="6668" data-is-duplicate="0" data-program-type="">
+									<a id="chapter_survey_link" class="tab_title unload_link" href="javascript:void(0);">
+										<div class="tab_label">
+											<i class="fa fa-pencil-square sort_tab_icon ui-sortable-handle" aria-hidden="true"></i>
+										</div>
+										<span class="tab_details" id="">
+											<h4>Chapter Survey</h4>
+										</span>
+									</a>
+								</li>
+				</ul>
+			</li>
+	</ul>
+<div class="nano-pane" style="display: none;"><div class="nano-slider" style="height: 741px; transform: translate(0px, 0px);"></div></div></div>
+<nav id="main_navigation">
+	<div id="navbar">
+		<ul id="breadcrumbs" class="left_align">
+			<li>MERN</li>
+			<li>MERN Deployment</li>
+			<li id="chapter_title">MERN Deployment</li>
+			<li class="module_title">
+				Deployment                  
+			</li>
+		</ul>
+		<div id="profile_block" class="pull-right">
+			<div id="show_search_module_modal">
+				<span>Search</span>
+				<i class="fa fa-search" aria-hidden="true"></i>
+			</div>	
+
+			<img src="./Deployment _ MERN Deployment_files/jancy-red-1.png" alt="jancy" class="profile_image">
+			<div class="dropdown">
+				<a href="http://learn.codingdojo.com/m/130/6668/48262#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+					<div id="user_name_block">
+						<div>
+							<span class="decor_text">Hello,  </span> 
+							<span class="user_name">Jancy J</span>
+						</div>
+					</div>
+					<span class="caret"></span>
+				</a>
+				<div class="dropdown-menu dropdown-menu-right" role="menu" style="margin-top: 1px;">
+					<div class="dropdown_content">	
+						<ul>
+							<li>
+								<a href="http://learn.codingdojo.com/dashboard" class="unload_link">Dashboard</a>
+								<span class="glyphicon glyphicon-home pull-right" aria-hidden="true"></span>
+							</li>
+							<li class="view_user_info">
+								<a href="https://dojo.news/" target="_blank">Mattermost</a>
+								<span class="glyphicon glyphicon-comment pull-right" aria-hidden="true"></span>
+							</li>
+							<li class="view_user_info hidden">
+								<form action="http://clothing.codingdojo.com/auto_login/" id="clothing_dojo_login" method="post" class="hidden" target="_blank">
+									<input type="hidden" name="email_address" value="jancyjoseph@gmail.com">
+									<input type="hidden" name="first_name" value="jancy">
+									<input type="hidden" name="last_name" value="joseph">
+									<input type="hidden" name="program_type" value="Onsite">
+									<input type="hidden" name="location" value="Seattle">
+									<input type="hidden" name="key" value="7ba534c5d0832e943537ec93b747be2d">
+									<input type="hidden" name="cd_key" value="">
+								</form>
+								<a href="http://learn.codingdojo.com/m/130/6668/48262#" class="clothing_dojo_link">Clothing Dojo</a>
+								<span class="glyphicon glyphicon-shopping-cart pull-right" aria-hidden="true"></span>
+							</li>
+							<li class="dropdown_buttons">
+								<a id="signout_button" class="btn btn-primary btn-lg btn-block unload_link" href="http://learn.codingdojo.com/signout">Log Out</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</nav>
+
+<section id="main_content">
+	<div class="info_container">
+	</div>
+
+    	<div id="section_content">
+			<a href="http://learn.codingdojo.com/m/130/6668/survey" class="backup_next_link hidden"></a>
+		<span class="report_error">Having issues? <a href="javascript:void(0)" data-toggle="modal" class="report_mistake" data-target="#report_mistake_modal">Report here</a>.</span>
+
+		<a href="http://learn.codingdojo.com/m/130/6668/48262#" data-track-id="130" data-chapter-id="6668" data-module-id="48262" class="btn btn-primary show_checklist_btn">Checklist</a>
+	<div id="assignment-metadata"></div>
+		<div class="content_block">
+			<div id="module_container">
+				<div class="module_content module_content_block">
+							
+							<input type="hidden" id="current_module_id" name="authenticity_token" value="lSEy3SfDy7QkSGoa09fnaNHoPnXg+hZ3c9YZU/IIO9w=" current-module="48262" course-percentage="100" track-content-id="1911"> 
+							
+
+								<div class="module_description active_lesson active_lesson_with_video ">
+									<p> <br> <br> <br></p><h1>Deployment</h1>
+<h2>Push Your Code to GitHub</h2>
+<p>Before we get started, we need to get our project onto GitHub. Change directory (<code>cd</code>) into the folder that contains our <code>client/</code>&nbsp;and&nbsp;&nbsp;<code>server/</code>&nbsp;folders .</p>
+<pre class="">├─ project-name/
+| ├─ client/
+| | ├─ node_modules/
+| | ├─ public/
+| | ├─ src/
+| | ├─ package.json
+| ├─ server/
+| | ├─ config/
+| | ├─ controllers/
+| | ├─ node_modules/
+| | ├─ models/
+| | ├─ routes/
+| | ├─ package.json
+| | ├─ server.js
+</pre>
+<p>Inside of this project-name folder, we will be making a file called .gitignore. The .gitignore file will allow us to tell git which files and folders we don't want it to track or commit. As the contents of our node_modules folders are rather large and can easily be re-downloaded we will be making sure these don't get pushed to GitHub.</p>
+<div>
+    <pre class="">echo node_modules/ &gt; .gitignore</pre>
+</div>
+<p>This command will create a file called .gitignore and make its contents the text node_modules/.</p>
+<p>Next, we will need to remove any git repositories that already exist inside of our client folder. When we run the npx create-react-app client command, Create React App will add in a git repository by default and as we wish to push all of our project to github as one repository we will need to remove this now.&nbsp;While we're inside of our client folder, we also want to create a production build of our code (basically transcode all that fancy JSX into vanilla HTML, CSS, and JS) that our user's computer will be able to understand.&nbsp;</p>
+<p><strong>IMPORTANT: </strong>don't forget to&nbsp;npm run build&nbsp;before we push our code to GitHub.</p>
+<pre class="active_pre">cd client
+npm run build<div id="copy-toolbar-container" style="cursor: pointer; position: absolute; top: 5px; right: 5px; padding: 0px 3px; background: rgba(224, 224, 224, 0.2); box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 0px 0px; color: rgb(187, 187, 187); border-radius: 0.5em; font-size: 0.8em;"><span id="copy-toolbar">copy</span></div></pre>
+<table>
+    <tbody>
+        <tr>
+            <td><h4>MacOS and Git BASH</h4></td>
+            <td><h4>Windows CMD</h4></td>
+        </tr>
+        <tr>
+            <td><pre>rm -rf .git
+rm .gitignore</pre>
+</td>
+            <td><pre class="">rmdir /s .git
+del /f .gitignore</pre>
+</td>
+        </tr>
+    </tbody>
+</table>
+<p>Next we will initialize a git repository, add all of our code to it (ignoring node_modules) and create a commit with the message "initial commit".</p>
+<div><pre class="">cd ..
+git init
+git add .
+git commit -m "initial commit"</pre>
+</div>
+<p>Next we need to create a GitHub repository. After logging into GitHub, click on the repositories tab followed by the green button that says "New".</p>
+<figure><img src="./Deployment _ MERN Deployment_files/Screenshot_from_2020-01-15_09-20-54-edit.png"></figure>
+<p>Next type in a name for your new repository "MERN-Deployment" works well and click on the "Create repository" button.</p>
+<figure><img src="./Deployment _ MERN Deployment_files/Screenshot_from_2020-01-15_09-21-30.png"></figure>
+<p>Then we will set the remote origin and push our code to it.</p>
+<figure><img src="./Deployment _ MERN Deployment_files/Screenshot_from_2020-01-15_09-21-50.png"></figure>
+<pre class="">git remote add origin https://github.com/your_github_username/MERN-deployment.git
+git push -u origin master
+</pre>
+<p>Your project should now be on GitHub. Yay!</p>
+<h2>Set up your server instance on AWS</h2>
+<p>To get started, <a href="https://console.aws.amazon.com/ec2/v2/home#Instances:sort=instanceId" target="_blank">login to AWS</a>. Go to the EC2 Dashboard, then running instances, then select "Launch Instance".</p>
+<div><font color="#3e4e5a" face="Gotham-Rounded-Medium">Choose your server... we will be using <strong>Ubuntu 18.04 LTS</strong></font></div>
+<figure><img src="./Deployment _ MERN Deployment_files/Screenshot_from_2020-01-15_10-27-00.png"></figure>
+<p>Next choose <strong>t2.micro</strong> for the instance size.</p>
+<figure><img src="./Deployment _ MERN Deployment_files/Screenshot_from_2020-01-15_10-27-12.png"></figure>
+<p>Keep clicking "next" until you get to "Configure Security Group".</p>
+<p>Next make sure you add in rules for http and https and set the source for them to "Anywhere".</p>
+<p><strong>IMPORTANT:</strong> If you forget to do this you will be unable to access your website.</p>
+<figure><img src="./Deployment _ MERN Deployment_files/Screenshot_from_2020-01-15_10-41-00.png"></figure>
+<p>You will then be prompted about your PEM key. If you already have one, then feel free to reuse it otherwise create and download a new PEM key.</p>
+<figure><img src="./Deployment _ MERN Deployment_files/Screenshot_from_2020-01-15_10-41-19.png"></figure>
+<p>Select your instance and click the connect button. A modal will then pop up to show some&nbsp;&nbsp;</p>
+<figure><img src="./Deployment _ MERN Deployment_files/Screenshot_from_2020-01-15_10-30-16.png"></figure>
+<p>Select your instance and hit the "connect" button. The commands in the window that pops up should allow you to SSH (secure shell) your way onto the server.</p>
+<p>In your terminal, cd into the directory that contains you pem key. Once there run the commands from the modal on the EC2 dashboard. The first command will properly set the permissions for a key name keyname.pem. The second will SSH into your AWS server instance.</p>
+<pre class="">chmod 400 keyname.pem
+ssh -i "keyname.pem" ubuntu@ec2-XXX-XXX-XXX-XXX.compute-1.amazonaws.com</pre>
+<p><strong>Note:</strong> In Windows CMD you do not need to run the chmod command</p>
+<p>You should now be connected to your server instance.</p>
+<div>
+<h2>Getting our code onto the server instance</h2>
+<p>There are a few steps we need to take initially getting everything set up.</p>
+</div>
+<pre class="">sudo apt update
+sudo apt install nodejs npm nginx git -y</pre>
+<p>These commands will make sure the server has up to date software, then install: Node.js, Node Package Manager, NGINX (pronounced "engine x"), and git. The "-y" answers yes to the prompt of if you want to install all of this software.</p>
+<h2>Node Version</h2>
+<p>By default, we will be getting version 8.10.0 when we install nodejs, and we need to get a more recent version for many of our packages to run happily on the server. To overcome this we will install a <strong>PPA</strong> (personal package archive) that will allow us to get a newer version of nodejs.</p>
+<pre class="">nodejs -v
+# this should print out version 8.10.0
+curl -sL https://deb.nodesource.com/setup_10.x -o nodesource_setup.sh
+sudo bash nodesource_setup.sh
+sudo apt install nodejs
+nodejs -v
+# this should now print out version 10.19.0
+sudo apt install build-essential
+</pre>
+<p>Now that we have installed NGINX (our server software), we should be able to navigate our browser to our server's public ip address and see the default NGINX splash screen.</p>
+<p><strong>IMPORTANT:</strong>&nbsp;If you do not see the "Welcome to nginx!" message you either did not install NGINX in the previous step or you did not set up your Security Group correctly.&nbsp;</p>
+<figure><img src="./Deployment _ MERN Deployment_files/Screenshot_from_2020-01-15_14-00-12.png"></figure>
+<p>Now that we have installed git, we can use it to clone our repository that we made in the first step.</p>
+<pre class="">git clone https://github.com/your_github_username/MERN-deployment.git</pre>
+<div><font color="#3e4e5a">Next (to make the following commands more copy-pasta-able) we will export a variable on our server.</font></div>
+<pre class="">export repoName=MERN-Deployment</pre>
+<p>After exporting the variable, we can check to make sure it was set by echoing it. Echo will print the variable out in our terminal.&nbsp;</p>
+<pre class="">echo $repoName</pre>
+<p>When referring to our variable "repoName" moving forward we will have a "$" at the beginning of it.</p>
+<h2>Setting up the Front-End</h2>
+<p>Next we'll cd into the client folder and then delete a folder at /var/www/html. This is where the html from the earlier "Welcome to nginx!" splash screen lives. We are then going to move the production react app code that we built before pushing the code to GitHub to this folder. Lastly we'll restart the nginx service so that it no longer serves the previous welcome message.&nbsp;</p>
+<pre class="">cd ~/$repoName/client
+sudo rm -rf /var/www/html 
+sudo mv build /var/www/html
+sudo service nginx restart
+</pre>
+<div>If we navigate our browser to our IP address we should see the Front-End of our project rather than the default NGINX splash screen. If you don't see this go back and try rerunning the previous steps.</div>
+<figure><img src="./Deployment _ MERN Deployment_files/Screenshot_from_2020-01-16_10-07-04.png"></figure>
+<p><font face="Gotham-Rounded-Medium"><strong>Fixing our Front-End routes</strong></font></p>
+<p>When we were developing before, our Back-End server was accessible on&nbsp;<code>"http://localhost:8000"</code>&nbsp;but when we deploy our project the Back-End will then be accessible at whatever our IP address happens to be. To fix the links we would essentially need to go into our build folder and change all routes that look like this into routes that just start with&nbsp;<code>"/"</code>. While we could fire up vim and do just that we can instead use the power of BASH commands to make this change in one command.</p>
+<pre class="">sudo grep -rl localhost /var/www/html | xargs sed -i 's/http:\/\/localhost:8000//g'
+</pre>
+<p>This command will use grep (Global Regular Expression Print) to find all lines that contain the string "localhost" and pipe them into sed (Stream Editor) which will do a find and replace to remove the matching string.</p>
+<h2>Setting up the Back-End</h2>
+<p>Next we need to retrieve the node_modules that we previously gitignored.</p>
+<div>
+<pre class="">cd ~/$repoName/server
+npm i</pre>
+    
+<p>Next we need to get our Back-End server working.&nbsp;<br></p><p><strong>First thing we'll need is a working MongoDB.</strong></p><p><strong>Note</strong>: some of these commands are very long, so each new command is prefaced by a "$".</p><pre class="">$ wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
+$ echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
+$ sudo apt update
+$ sudo apt install -y mongodb-org
+$ sudo service mongod start
+$ service mongod status
+</pre>
+<p>These commands will install MongoDB, start the MongoDB daemon, and display that daemon's status. You should see a message that looks like the following letting you know it's working.</p><p><br></p><figure><img src="./Deployment _ MERN Deployment_files/Screenshot_from_2020-01-16_12-17-35.png"></figure><p><strong>Next we'll Configure NGINX.</strong></p><p>The following commands will delete the old NGINX configuration and open the file in vim for us to copy in our new configuration.</p><pre class="">sudo rm /etc/nginx/sites-available/default
+sudo vim /etc/nginx/sites-available/default</pre>
+<p>Once inside vim use <code>i</code> to go into insert mode and paste in the following...</p><pre class=""># MERN-Deployment Configuration 1-16-2020
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+    server_name MERN-Deployment;
+    location /api {
+        proxy_pass http://localhost:8000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;    
+    }
+    location / {
+        try_files $uri $uri/ =404;
+    }
+    error_page 404 /index.html;
+}
+</pre>
+<p>After pasting in this configuration you can escape vim by using <code>esc</code> followed by <code>:wq</code> and then <code>enter</code>.&nbsp;</p><p>This configuration will point all requests that start with <code>/api</code> to our Back-End and will respond to every other request with our <code>index.html</code> file.&nbsp;</p><p><strong>IMPORTANT</strong>: If your back-end server runs on a port other than 8000 change the configuration file above to use that port.</p><p>Now that we have set up the configuration we can test to see if the Back-End is now connecting.</p><pre class="">cd ~/$repoName/server
+sudo service nginx restart
+node server.js</pre>
+<p>At this point our project should be working as long as the <code>node server.js</code> command is running.</p><figure><img src="./Deployment _ MERN Deployment_files/Screenshot_from_2020-01-16_13-03-51.png"></figure><h2>Wrapping up</h2>
+<p>Our project is working, but as soon as we disconnect from the server instance our project will stop running. What we need is a process manager to keep our Back-End running. Enter pm2 (not surprisingly pm2 stands for <strong>P</strong>rocess <strong>M</strong>anager... <strong>2</strong>).</p>
+<pre>sudo npm i pm2 -g
+pm2 start server.js
+pm2 status</pre>
+<p>These commands will install pm2 globally, tell pm2 to run <code>server.js</code> for us, and display the status of pm2.</p>
+<figure><img src="./Deployment _ MERN Deployment_files/Screenshot_from_2020-01-16_13-16-25.png"></figure>
+<p>At this point if the status says "online" you are now finished deploying. Good job!</p>        
+</div>
+<p> <br> <br> </p>									
+								</div>
+
+
+
+
+						
+
+					
+					
+					<!-- Modal Inactivity Notice Modal -->
+					<div class="modal fade info_modal" id="inactivity_notice_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+						<div class="modal-dialog" style="margin-top: 226.2px;">
+							<div class="modal-content">
+								<span class="hide_modal glyphicon glyphicon-remove" data-dismiss="modal" aria-label="Close"></span>
+								<div class="modal_header">
+									<h4>Inactivity Notice</h4>
+									<span class="glyphicon glyphicon-question-sign notice_tooltip pull-right" data-toggle="tooltip" data-placement="right" title="" data-original-title="The system keeps track if you are active or not. We are saving the total time you spent on each topic for course improvement and student support purposes."></span>
+								</div>
+								<div class="modal_body">
+									<p>You have been idle for a long time, click the button below if you are you are still there.</p>
+									<a href="http://learn.codingdojo.com/m/130/6668/48262#" class="btn btn-primary continue_btn" data-dismiss="modal" target="_blank">CLICK TO CONTINUE</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- end of Modal Inactivity Notice Modal -->
+
+					<!-- Log out from another device modal --> <!-- end of Log out from another device modal -->
+				</div>
+			</div>
+
+		</div>	
+		<div class="content_footer_block">
+			<a class="site_terms_link" data-target=".privacy_policy_modal" data-toggle="modal">Privacy Policy</a>
+			<div id="report_mistake_label_container" class="pull-right">
+				<span>To report a mistake, highlight the selection you believe is in error.</span>
+			</div>
+		</div>
+	</div>	
+
+
+	<!-- 	<div class="content_footer_block">
+			<a class="site_terms_link" data-target='.privacy_policy_modal' data-toggle='modal'>Privacy Policy</a>
+			<div id="report_mistake_label_container" class="pull-right">
+				<span>To report a mistake, highlight the selection you believe is in error.</span>
+			</div>
+		</div> -->
+
+		<!-- cts warning modal -->
+		<div class="modal fade info_modal cts_warning_modal" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog" style="margin-top: 226.2px;">
+				<div class="modal-content">
+					<span class="hide_modal glyphicon glyphicon-remove" data-dismiss="modal" aria-label="Close"></span>
+					<form action="http://learn.codingdojo.com/m/130/6668/48262" id="cts_warning_form">
+						<div class="modal_header"><h4>Confirm Action</h4></div>
+						<div class="modal_body">
+							<p>Only <span class="time_passed"></span> had passed since you started this assignment. Are you sure you want to view the Answersheet? The more you code on your own, the more you become a self-sufficient software engineer</p>
+							<a href="javascript:void(0);" class="btn btn-default cancel_btn" data-dismiss="modal">CANCEL</a>
+							<!-- <a href="javascript:void(0);" class="btn btn-primary submit_btn continue_btn" data-dismiss="modal">CONTINUE</a> -->
+							<input type="submit" class="btn btn-primary submit_btn continue_btn" id="view_answersheets" data-dismiss="modal" value="CONTINUE">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+	 
+
+	<!-- Reported a mistake popover -->
+	<a href="http://learn.codingdojo.com/m/130/6668/48262#" class="hidden" id="report_mistake_popover" data-placement="bottom" data-original-title="" title="" aria-describedby="popover201169"></a>
+	<div class="hidden" id="report_mistake_popover_clone">
+		<span class="report_mistake_label">Report a mistake</span>
+		<form id="report_mistake_container" action="http://learn.codingdojo.com/report_mistake">
+			<h5>Report a mistake</h5>
+			<input type="hidden" name="chapter_module_id" value="48262">
+			<input type="hidden" name="authenticity_token" value="lSEy3SfDy7QkSGoa09fnaNHoPnXg+hZ3c9YZU/IIO9w=">
+			<input type="hidden" name="course_id" value="2120">
+			<input type="hidden" name="chapter_id" value="6668">
+			<input type="hidden" name="track_id" value="130">
+			<textarea name="report_mistake_textarea" id="report_mistake_textarea" rows="5" placeholder="Tell us what&#39;s wrong"></textarea>
+			<input type="submit" value="SUBMIT" class="btn btn-primary btn-block">
+		</form>
+	</div>
+	<!-- END of Reported a mistake popover -->
+
+	<ul class="create_message_container">
+		<!-- Append the Chat here -->
+		<li class="chat_counter hidden"> 
+			<span class="glyphicon glyphicon-comment"></span> 
+			<span id="number_of_hidden_chat"></span>
+		</li>
+	</ul>
+
+	<div id="content_footer">	
+		<div class="prev_button">  
+			<a href="http://learn.codingdojo.com/m/130/6751" class="btn btn-primary previous_button_link unload_link">
+				<span class="glyphicon glyphicon-chevron-left"></span>
+				Previous
+			</a>
+			<!-- <span class="glyphicon glyphicon-chevron-left"></span>
+			<a href="/m/130/6751" class="previous_button_link unload_link">Prev</a> -->
+		</div>
+		<a href="javascript:void(0);" class="back_button">Back to Track</a>
+		<div class="next_button pull-right">
+				<a href="http://learn.codingdojo.com/m/130/6668/survey" class="btn btn-primary next_button_link unload_link">
+					Next
+					<span class="glyphicon glyphicon-chevron-right"></span>
+				</a>
+				<a href="http://learn.codingdojo.com/m/130/6668/survey" class="real_next_link hidden"></a>
+		</div>
+		<div id="linkage" data-target="#inactivity_notice_modal" data-toggle="modal" style="display:none;"></div>
+	</div>
+
+	<!-- Privacy Policy Modal -->
+	<div class="modal fade privacy_policy_modal" tabindex="-1" role="dialog" data-keyboard="">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<span class="hide_modal glyphicon glyphicon-remove" data-dismiss="modal" aria-label="Close"></span>
+				
+				<div id="terms_of_service">
+					<div class="greetings">
+						<p id="thank_you_greeting">Thank you for taking the time to learn about our legal policies.</p>
+						<p id="greeting">Your privacy is important to us.</p>
+					</div>
+					<div class="links">
+						<p id="privacy_policy">
+							<a href="http://www.codingdojo.com/files/Privacy_Policy.pdf" target="_blank">Privacy Policy</a>
+						</p>
+						<p id="acceptable_use">
+							<a href="http://www.codingdojo.com/files/Acceptable_Use_Policy.pdf" target="_blank">Acceptable Use</a>
+						</p>
+						<p id="site_terms">
+							<a href="http://www.codingdojo.com/files/Site_Terms.pdf" target="_blank">Site Terms</a>
+						</p>
+					</div>
+					<a href="javascript:void(0)" class="btn btn-primary" id="close_button" data-dismiss="modal">CLOSE</a>
+				</div>
+			</div>
+		</div>
+	</div> 
+</section>
+
+<!-- My Account Modal -->
+<div id="my_account_modal" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<span class=" glyphicon glyphicon-remove-sign" data-dismiss="modal" aria-label="Close"></span>
+			<div class="modal-body">
+				<form action="http://learn.codingdojo.com/upload_profile_pic" id="upload_profile_pic_form" class="profile_pic" enctype="multipart/form-data" method="post">
+					<input type="hidden" name="authenticity_token" value="lSEy3SfDy7QkSGoa09fnaNHoPnXg+hZ3c9YZU/IIO9w=">
+					<input id="browse_pic" class="browse_profile_pic hidden" type="file">
+					<label for="browse_pic">
+						<span class="profile_preview">
+							<i class="fa fa-spinner fa-spin"></i>
+							<img src="./Deployment _ MERN Deployment_files/jancy-red-1.png" alt="jancy"> 
+						</span>
+					</label>
+				</form>
+				<h2 class="name">jancy joseph</h2>
+				<h3 class="email">jancyjoseph@gmail.com</h3>
+
+
+					<ul class="list-unstyled" id="account_details_list">
+			            <li>
+			            	<span class="account_detail_icon"></span>
+			            	<div class="account_detail_content">
+			            		<span>Program Type:</span>
+			            		<span>Onsite Web Development</span>
+			            	</div>
+			            		
+			            </li>
+			            <li>
+			            	<span class="account_detail_icon"></span>
+			            	<div class="account_detail_content">
+			            		<span>Start Date:</span>
+			            		<span>February 17, 2020</span>
+			            	</div>
+			            </li>
+			            <li>
+			            	<span class="account_detail_icon"></span>
+			            	<div class="account_detail_content">
+			            		<span>Location:</span>
+			            		<span>Seattle</span>
+			            	</div>
+			            </li>
+			            <li>
+			            	<span class="account_detail_icon"></span>
+			            	<div class="account_detail_content">
+			            		<span>Access Expiration:</span>
+			            		<span>November 29, 2020</span>
+			            	</div>
+			            </li>
+					</ul>
+
+					<button class="change_password_btn btn btn-primary">Change Password</button>
+					<div class="password_changed_container hidden">
+						<img src="./Deployment _ MERN Deployment_files/check.png" alt="Check Mark">
+						<p class="success">Password has been succesfully changed!</p>
+					</div>
+
+					<form id="change_password_form" class="hidden">
+						<span class="error_message hidden"></span>
+						<div class="form-group">
+					      	<input type="password" class="form-control old_password_input match" placeholder="Old Password">
+						</div>
+						<div class="form-group">
+					      	<input type="password" class="form-control new_password_input match" placeholder="New Password">
+						</div>
+						<div class="form-group">
+					      	<input type="password" class="form-control confirm_new_password_input match" placeholder="Confirm New Password">
+						</div>
+					    <button type="button" class="btn btn-default cancel_change_password_btn">Cancel</button>
+					    <button type="button" class="btn btn-primary save_new_password_button">Save</button>
+					</form>
+			</div>
+		</div>
+    </div>
+</div>    
+<!-- end of My Account Modal  -->
+
+
+<!-- Checklist -->
+<div id="checklist_backdrop"></div>
+<div id="checklist_side_container" class="full_view">
+	<div class="loading_container hidden">
+		<span class="blob blob-0"></span>
+		<span class="blob blob-1"></span>
+		<span class="blob blob-2"></span>
+		<span class="blob blob-3"></span>
+		<span class="blob blob-4"></span>
+		<span class="blob blob-5"></span>
+	</div>
+</div>
+
+<!-- Checklist Feedback Modal -->
+<div class="modal fade" id="checklist_feedback_modal" tabindex="-1" role="dialog" aria-labelledby="">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<form action="http://learn.codingdojo.com/m/130/6668/48262" id="manage_checklist_feedback_form">
+				<input type="hidden" name="assignment_feedback_id" value="">
+				<div class="modal-header">
+					<h4 class="modal-title">Feedback for <span class="assignment_name"></span> assignment.</h4>
+				</div>
+				<div class="modal-body">
+					<textarea name="feedback_description" id="feedback_textarea" class="form-control" placeholder="Type your feedback here."></textarea>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<!-- <button type="submit" class="btn btn-primary">Save</button> -->
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- Clone Template -->
+<div id="clone_template_container" class="hidden">
+	<ul id="chat_item">
+		<li data-chat-id="" data-module-id="" class="active_chat chat"> 
+		    <input type="checkbox" class="chat_checkbox" id="" checked="checked"> 
+		    <div class="chat_container"> 	
+		        <div class="chat_header"> 
+		            <label for="chat_checkbox_" class="hide_chat"> 
+		                <span class="glyphicon glyphicon-comment"></span> 
+		                <span class="name"></span> 
+		                <span class="glyphicon glyphicon-triangle-bottom"></span> 
+		                <span class="glyphicon glyphicon-remove remove_chat"></span> 
+		            </label> 
+		        </div>  
+		        <div class="chat_body"> 
+		            <div class="settings"> 
+		                <span class="start_this_call glyphicon glyphicon-facetime-video" title="Video call. Click to start a video call."></span>
+		            </div> 
+		            <div class="conversation_container nano has-scrollbar"> 
+		                <ul class="nano-content" tabindex="0" style="right: -17px;"> 
+		                </ul> 
+		            <div class="nano-pane" style="display: none;"><div class="nano-slider" style="height: 20px; transform: translate(0px, 0px);"></div></div></div> 
+		            <div class="hidden_div"></div> 
+		        </div> 
+		        <form class="input_container"> 
+		            <textarea name="" class="form-control enter_message" placeholder="Send a message"></textarea> 
+		            <input type="hidden"> 
+		        </form> 
+		    </div> 
+		</li>
+	</ul>
+
+	<div id="video_walk_through">
+		<a class="how_we_did_video"> 
+	    	<div class="how_we_did_block">
+	        	<div id="video_logo"><img src="./Deployment _ MERN Deployment_files/play_button.png" alt=""></div> 
+	        	<div class="how_we_did_info"> 
+	            	<span class="title">Wanna see how we did it?</span> 
+	            	<span class="video_time_to_unlock"></span> 
+	        	</div> 
+	    	</div> 
+	     </a>
+	</div>
+
+	<ul id="question_clone">
+		<li class="question"> 
+            <img src="http://learn.codingdojo.com/m/130/6668/48262" alt="profile_picture" class="profile_image"> 
+            <div class="right_question_content"> 
+                <div class="question_block">
+                    <span class="name"></span> 
+                    <span class="date"></span> 
+                    <span class="glyphicon glyphicon-remove pull-right remove_question" id=""></span> 
+                    <p class="main_question"></p> 
+                    <a href="http://learn.codingdojo.com/m/130/6668/48262#" class="add_question_answer" id="">Add answer</a> 
+                    <span class="middle_dot">·</span>
+                    <a href="http://learn.codingdojo.com/m/130/6668/48262#" class="number_of_vote" data-value=""></a> 
+                    <button id="" class="vote_up vote_button" value="1"><span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></button> 
+                    <button id="" class="vote_down vote_button" value="-1"><span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></button> 
+                </div>
+                <form class="list-unstyled create_answer_container" id="post_answer" action="http://learn.codingdojo.com/helps/post_answer" method="post"> 
+                    <img src="http://learn.codingdojo.com/m/130/6668/48262" alt="profile_picture" class="profile_image"> 
+                    <div class="create_answer_form"> 
+                        <input type="hidden" name="authenticity_token" value="lSEy3SfDy7QkSGoa09fnaNHoPnXg+hZ3c9YZU/IIO9w=">
+                        <input class="answer_id_input" type="hidden" name="answer[question_id]" value="">
+                        <textarea class="form-control answer_value" name="answer[text_answer]" rows="2" placeholder=""></textarea>
+                        <div class="post_answer_buttons">
+                            <button class="btn btn-default cancel_post_answer">CANCEL</button>
+                            <button class="btn btn-primary post_reply_answer">ANSWER</button>
+                        </div>
+                    </div>
+                </form>
+                <ul class="list-unstyled answers_container">
+                </ul> 
+            </div>
+        </li>
+	</ul>
+
+	<ul id="answer_clone">
+		<li> 
+		    <div class="left_answers_block"> 
+		        <img src="http://learn.codingdojo.com/m/130/6668/48262" alt="profile_picture" class="profile_image"> 
+		    </div> 
+		    <div class="right_answers_block"> 
+		        <span class="name"></span> 
+		        <span class="date"></span> 
+		        <span class="glyphicon glyphicon-remove pull-right remove_answer" id=""></span> 
+		        <p></p> 
+		        <a href="http://learn.codingdojo.com/m/130/6668/48262#" class="number_of_vote" data-value=""></a> 
+		        <button id="" class="vote_up vote_button answer_vote" value="1"><span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></button> 
+		        <button id="" class="vote_down vote_button answer_vote" value="-1"><span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></button> 
+		    </div> 
+		</li>
+	</ul>
+</div>
+
+<!-- Html5 Videos speed Clone -->
+<div class="hidden html5_video_speed_clone">
+	<div class="btn-group" role="group" aria-label="..."> 
+		<button type="button" class="btn btn-default reduce_video_speed"> <span class="glyphicon glyphicon-minus"></span> </button> 
+		<button type="button" class="btn btn-default current_speed">1.0</button>
+		<button type="button" class="btn btn-default add_video_speed"> <span class="glyphicon glyphicon-plus"></span> </button>
+	</div>
+</div>
+
+<div id="page_info">
+	<input type="hidden" value="http://learn.codingdojo.com/m/130/6668/48262">
+	<input type="hidden" value="130">
+	<input type="hidden" value="2120">
+	<input type="hidden" value="6668">
+	<input type="hidden" id="module_id_current" value="48262">
+	<input type="hidden" value="52.36.185.79">
+	<input type="hidden" value="36572" id="page_current_user" user="jancy joseph">
+</div>
+
+
+
+<!-- <div class="modal fade switch_primary_track_modal" tabindex="-1" role="dialog" aria-labelledby="" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form action="" id="switch_track_form">
+				<div class="modal_title">
+					<h4>SWITCH PRIMARY TRACK:</h4>
+					<p>Your primary track is where the instruction team will provide you with active engagement and support <br> (live lectures, code reviews, etc).</p>
+				</div>
+
+				<div id="switch_track_to_track_container">
+					<div class="subscription_track track_item_" data-id="">
+						<a href="#"> 
+							<span class="track_icon"></span>
+							<span></span> 													
+						</a> 												
+					</div>
+
+					<i class="fa fa-chevron-right" aria-hidden="true"></i>
+
+					<div class="subscription_track primary_track track_item_" data-id=""> 
+						<input type="hidden" name="selected_track_id" value=""> 
+						<input name="authenticity_token" value="" type="hidden">
+						<a href="#"> 
+							<span class="track_icon"></span>
+							<span></span> 													
+						</a> 												
+					</div>
+
+				</div>
+
+				<p>Do you want to change your primary track from <span class="current_track"></span> to <span class="selected_new_track"></span>?</p>
+
+				<div class="btn_container">
+					<a href="#" class="cancel_switch_track trigger_browse_btn">NO</a>
+					<input type="submit" class="btn btn-primary" value="YES">
+				</div>
+			</form>
+
+			<div class="success_message_container">
+				<img src="/assets/cd_logo_png.png" alt="coding dojo logo">
+				<h5 class="success_message">Switching of track was successfully processed.</h5>
+				<p class="final_message">Happy Coding!</p>
+				<a href="#" class="btn btn-primary btn-lg btn-block trigger_browse_btn">Continue</a>
+			</div>
+		</div>
+	</div>
+</div>	 -->
+
+<!-- For report mistake form -->
+	<div id="report_mistake_modal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+	    <div class="modal-dialog modal-lg" role="document">
+	        <div class="modal-content">
+	            <a title="Close" class="fancybox-item fancybox-close" data-dismiss="modal" href="http://learn.codingdojo.com/m/130/6668/48262#"></a>
+	            <form action="http://learn.codingdojo.com/save_learn_reported_mistakes" class="report_mistake_form" method="post" enctype="multipart/form-data">
+	                <input type="hidden" name="authenticity_token" value="lSEy3SfDy7QkSGoa09fnaNHoPnXg+hZ3c9YZU/IIO9w=">
+	                <input type="hidden" name="entry_1021664347" value="jancy joseph">
+	                <input type="hidden" name="entry_1391659112" value="jancyjoseph@gmail.com">
+	                <input type="hidden" name="cd_key" value="fe49515bf8a5cffba1ef9abc28665a35">
+	                <h3>Share the issue you found and we'll fix it as soon as we can.</h3>
+	                <ul class="list-unstyled">
+	                    <li>
+	                        <div class="form-group">
+	                            <span>Encountered a Bug in:</span>
+	                            <select id="selected_category" name="entry_217562519" class="form-control">
+	                                <option value="" disabled="" selected="">Select page/feature</option>
+	                                <option value="Login Page">Login page</option>
+	                                <option value="Dashboard Page">Dashboard page</option>
+	                                <option value="Lesson pages">Lesson pages</option>
+	                                <option value="Chapter Survey">Chapter Survey page</option>
+	                                <option value="Stack Survey">Stack Survey page</option>
+	                                <option value="Checklist Feature">Checklist feature</option>
+	                                <option value="Exam Page">Exams page</option>
+	                                <option value="Payment feature">Payment feature</option>
+	                                <option value="Enrollment process">Enrollment process</option>
+	                            </select>
+	                        </div>
+	                    </li>
+	                    <li>
+	                        <div class="form-group">
+	                            <span>Issue encountered:</span>
+	                            <textarea name="entry_1757205018" class="form-control"></textarea>
+	                        </div>
+	                    </li>
+	                    <li>
+	                        <div class="form-group">
+	                            <ul class="upload_list hidden"></ul>
+	                            <label for="bug_report_fileupload_input" class="bug_report_fileupload_btn">
+	                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+	                                <span class="upload_text">Attach image</span>
+	                                <input class="hidden" type="file" name="fileToUpload" id="bug_report_fileupload_input" accept="image/*">
+	                            </label>
+	                        </div>
+	                    </li>
+	                    <li>
+	                        <input type="submit" class="submit_btn" value="SEND">
+	                    </li>
+	                </ul>
+	            </form>
+	            <div class="success_container">
+	                <i class="fa fa-check-circle" aria-hidden="true"></i>
+	                <h3>Your report has been successfully sent. Thank you.</h3>
+	                <p>While waiting for further assistance, try using the backup site <a href="http://study.codingdojo.com/">study.codingdojo.com</a> to continue your progress.</p>
+	                <!-- <p class="report_issue_link">For further assistance, you may also email us at <a href="mailto:help@codingdojo.com" target="_blank">help@codingdojo.com</a>.</p> -->
+	                <a href="http://learn.codingdojo.com/m/130/6668/48262#" class="btn" data-dismiss="modal">Ok</a>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+ <!-- End of report error form-->
+
+<div class="quiz_result_details_block" id="quiz_result_details" style="display: none;">
+	<div class="quiz_result_user_image">
+		<img src="./Deployment _ MERN Deployment_files/jancy-red-1.png" alt="jancy" class="profile_image">
+	</div>
+	<div class="quiz_result_info">
+		<h3 id="user_name"></h3>
+		<p id="quiz_date"></p>
+	</div>
+	<div class="clear"></div>
+	<p class="quiz_result_score"></p>
+	<div class="quiz_result_content">
+	</div>
+</div>
+		
+
+
+<script>
+	/* for showing of checklist details in chapter module page */
+
+    var checklist_details = JSON.parse('null');
+	
+    if(checklist_details != null){
+
+        if(Object.keys(checklist_details).length > 0){
+            var days = ["", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+            var level = ["", "Basic", "Intermediate", "Advanced", "Hacker"];
+            var details_to_append = '<ul class="list-inline information_checklist_list">';
+
+            	console.log(checklist_details)
+            $.each(checklist_details, function(index, value){
+                switch(index){
+                    case 'is_optional':
+                        status = (value == 1) ? "Optional" : "Mandatory";
+                        details_to_append += '<li>'+status+'</li>';
+                        break;
+                    case 'day':
+                        if(value && checklist_details.week != 0){
+                            details_to_append += "<li>Deadline: "+days[value]+" of Week "+checklist_details.week+"</li>"
+                        }
+                        break;
+                    case 'difficulty_level':
+                        if(value != 0 && value != null)
+                        details_to_append += "<li>Difficulty Level: "+level[value]+"</li>";
+                        break;
+                    case 'estimated_time':
+                        if(value != "" && value != null){
+                            details_to_append += "<li>Estimated Time: "+value+"</li>";
+                        }
+                        break;
+                }
+            });
+
+            details_to_append += "</ul>";  
+			$('#assignment-metadata').html(details_to_append)
+        }
+    }
+</script>
+<script type="text/javascript" src="http://learn.codingdojo.com/m/130/6668/48262"></script>
+
+
+
+<div class="loading_container hidden">
+	<img src="./Deployment _ MERN Deployment_files/loading_white.gif" alt="">
+	<div class="back_ground"></div>
+</div>
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="search_module_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<form action="http://learn.codingdojo.com/search_dashboard" id="search_module_form">
+						<div class="form-group">
+							<input type="text" placeholder="Search" name="search_query" id="search_query">
+							<button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+						</div>
+					</form>
+				</div>
+				<div class="modal-body">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Delete Chapter Modal -->
+	<div class="modal fade info_modal delete_chapter_modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" style="margin-top: 226.2px;">
+			<div class="modal-content">
+				<input type="hidden" name="chapter_id" value="">
+
+				<span class="hide_modal glyphicon glyphicon-remove" data-dismiss="modal" aria-label="Close"></span>
+				<div class="modal_header"><h4>Delete Chapter?</h4></div>
+				<div class="modal_body">
+					<p>Chapter will be permanently deleted. Are you sure?</p>
+					<a href="http://learn.codingdojo.com/m/130/6668/48262#" class="btn btn-default cancel_btn" data-dismiss="modal">CANCEL</a>
+					<a href="http://learn.codingdojo.com/m/130/6668/48262#" class="btn btn-primary confirm_delete_chapter" data-dismiss="modal">DELETE CHAPTER</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Delete Module Modal -->
+	<div class="modal fade info_modal delete_module_modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" style="margin-top: 226.2px;">
+			<div class="modal-content">
+				<input type="hidden" name="module_id" data-module="48262">
+				<input type="hidden" name="chapter_id" data-chapter="6668">
+				<input type="hidden" name="track_id" data-track="130">
+
+				<span class="hide_modal glyphicon glyphicon-remove" data-dismiss="modal" aria-label="Close"></span>
+				<div class="modal_header"><h4>Delete Module?</h4></div>
+				<div class="modal_body">
+					<p>Module will be permanently deleted. Are you sure?</p>
+					<a href="http://learn.codingdojo.com/m/130/6668/48262#" class="btn btn-default cancel_btn" data-dismiss="modal">CANCEL</a>
+					<a href="http://learn.codingdojo.com/m/130/6668/48262#" class="btn btn-primary confirm_delete_module" data-dismiss="modal">DELETE MODULE</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Delete Module Modal -->
+	<div class="modal fade info_modal confirm_delete_rubric_modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" style="margin-top: 226.2px;">
+			<div class="modal-content">
+				<input type="hidden" id="rubric_id">
+				<span class="hide_modal glyphicon glyphicon-remove" data-dismiss="modal" aria-label="Close"></span>
+				<div class="modal_header"><h4>Delete Criteria?</h4></div>
+				<div class="modal_body">
+					<p>This will be permanently deleted. Are you sure?</p>
+					<a href="http://learn.codingdojo.com/m/130/6668/48262#" class="btn btn-default cancel_btn" data-dismiss="modal">CANCEL</a>
+					<a href="http://learn.codingdojo.com/m/130/6668/48262#" class="btn btn-primary confirm_delete_criteria_btn" data-dismiss="modal">DELETE</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- copy/move module to Modal -->
+	<div class="modal fade info_modal action_confirm_modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" style="margin-top: 226.2px;">
+			<div class="modal-content">
+				<input type="hidden" name="module_id" data-module="48262">
+				<input type="hidden" name="chapter_id" data-chapter="">
+				<input type="hidden" name="track_id" data-track="130">
+				<input type="hidden" name="current_chapter_id" data-current-chapter="6668">
+
+				<span class="hide_modal glyphicon glyphicon-remove" data-dismiss="modal" aria-label="Close"></span>
+				<div class="modal_header"><h4>Copy Module</h4></div>
+				<div class="modal_body">
+					<p>Are you sure you want to <span class="action_name"></span> this module to <span class="chapter_title"></span></p>
+					<a href="http://learn.codingdojo.com/m/130/6668/48262#" class="btn btn-default cancel_btn" data-dismiss="modal">CANCEL</a>
+					<a href="http://learn.codingdojo.com/m/130/6668/48262#" class="btn btn-primary action_btn" data-dismiss="modal"></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- chapter_module_modal -->
+	<div class="modal fade info_modal chapter_module_modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" style="margin-top: 226.2px;">
+			<div class="modal-content">
+				<input type="hidden" name="chapter_id" value="">
+
+				<span class="hide_modal glyphicon glyphicon-remove" data-dismiss="modal" aria-label="Close"></span>
+				<div class="modal_header"><h4>New Chapter</h4></div>
+				<div class="modal_body">
+					<input id="" type="text" placeholder="Chapter Title" value="">
+					<a href="http://learn.codingdojo.com/m/130/6668/48262#" class="btn btn-primary">SAVE</a>
+				</div>
+			</div>
+		</div>
+	</div>	
+
+	<!-- My files modal -->
+	<div id="myfiles_modal" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+	    <div class="modal-dialog modal-sm">
+	      <div class="modal-content">
+				<h5>My files</h5>
+				<form class="my_files_upload" enctype="multipart/form-data">
+					<input type="file" class="browse_upload_file hidden" name="file_data">
+					<input type="hidden" name="authenticity_token" value="lSEy3SfDy7QkSGoa09fnaNHoPnXg+hZ3c9YZU/IIO9w=">
+					<span class="upload_my_files"><i class="fa fa-upload" aria-hidden="true"></i> Upload File</span>
+					<span class="upload_resume"><i class="fa fa-upload" aria-hidden="true"></i> Upload/Update Resume</span>
+				</form>
+				<span class="hide_modal glyphicon glyphicon-remove" data-dismiss="modal" aria-label="Close"></span>
+				<div class="content">
+					<div class="nano has-scrollbar">
+						<ul id="my_files_list" class="nano-content list-unstyled" tabindex="0" style="right: -17px;">
+							<span>Loading . . . . .</span>
+						</ul>
+						<div class="nano-pane" style="display: none;">
+							<div class="nano-slider" style="height: 20px; transform: translate(0px, 0px);"></div>
+						</div>
+					</div>
+				</div>
+	      </div>
+	    </div>
+	</div> 
+	<!-- end of My files modal -->
+
+	<!-- My Account Modal -->
+	<div id="my_account_modal" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
+	    <div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<span class=" glyphicon glyphicon-remove-sign" data-dismiss="modal" aria-label="Close"></span>
+				<div class="modal-body">
+					<form action="http://learn.codingdojo.com/upload_profile_pic" id="upload_profile_pic_form" class="profile_pic" enctype="multipart/form-data" method="post">
+						<input type="hidden" name="authenticity_token" value="lSEy3SfDy7QkSGoa09fnaNHoPnXg+hZ3c9YZU/IIO9w=">
+						<input id="browse_pic" class="browse_profile_pic hidden" type="file">
+						<label for="browse_pic">
+							<span class="profile_preview">
+								<i class="fa fa-spinner fa-spin"></i>
+								<img src="./Deployment _ MERN Deployment_files/jancy-red-1.png" alt="jancy"> 
+							</span>
+						</label>
+					</form>
+					<h2 class="name">jancy joseph</h2>
+					<h3 class="email">jancyjoseph@gmail.com</h3>
+
+
+						<ul class="list-unstyled" id="account_details_list">
+				            <li>
+				            	<span class="account_detail_icon"></span>
+				            	<div class="account_detail_content">
+				            		<span>Program Type:</span>
+				            		<span>Onsite Web Development</span>
+				            	</div>
+				            		
+				            </li>
+				            <li>
+				            	<span class="account_detail_icon"></span>
+				            	<div class="account_detail_content">
+				            		<span>Start Date:</span>
+				            		<span>February 17, 2020</span>
+				            	</div>
+				            </li>
+				            <li>
+				            	<span class="account_detail_icon"></span>
+				            	<div class="account_detail_content">
+				            		<span>Location:</span>
+				            		<span>Seattle</span>
+				            	</div>
+				            </li>
+				            <li>
+				            	<span class="account_detail_icon"></span>
+				            	<div class="account_detail_content">
+				            		<span>Access Expiration:</span>
+				            		<span>November 29, 2020</span>
+				            	</div>
+				            </li>
+    						<li>
+				            	<span class="opted_icon opted_in"></span>
+				            	<div class="account_detail_content">
+				            		<span>Career Services Status:</span>
+				            		<span>Opted-in</span>
+				            	</div>
+				            </li>
+						</ul>
+
+							<button class="change_password_btn btn btn-primary">Change Password</button>
+						<div class="password_changed_container hidden">
+							<img src="./Deployment _ MERN Deployment_files/check.png" alt="Check Mark">
+							<p class="success">Password has been succesfully changed!</p>
+						</div>
+
+						<form id="change_password_form" class="hidden">
+							<span class="error_message hidden"></span>
+							<div class="form-group">
+						      	<input type="password" class="form-control old_password_input match" placeholder="Old Password">
+							</div>
+							<div class="form-group">
+						      	<input type="password" class="form-control new_password_input match" placeholder="New Password">
+							</div>
+							<div class="form-group">
+						      	<input type="password" class="form-control confirm_new_password_input match" placeholder="Confirm New Password">
+							</div>
+						    <button type="button" class="btn btn-default cancel_change_password_btn">Cancel</button>
+						    <button type="button" class="btn btn-primary save_new_password_button">Save</button>
+						</form>
+				</div>
+			</div>
+	    </div>
+	</div>
+
+	<!-- Small modal -->
+	<!-- end of My Account Modal  -->
+
+	<!-- Manage Module Modal -->
+    <div class="modal fade new_edit_module_modal manage_module_modal " tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal_head">
+                    <h4></h4>
+					<!-- <span class="pull-right">SETTINGS</span> -->
+				</div>
+				<div class="modal_body">
+                    
+	            </div>     
+			</div>	
+		</div>
+	</div>
+
+
+	<!-- CLONE ITEMS -->
+	<ul class="hidden hidden_module_list">
+		<li class="completed_tab" data-module-type="">
+			<a class="tab_title" href="http://learn.codingdojo.com/m/130/6668/48262#">
+				<div class="tab_label"><span class="tab_icon"></span></div>
+				<span class="tab_details">
+					<h4>Overview</h4>
+				</span>
+			</a>
+
+			<div class="dropdown">
+				<span class="glyphicon glyphicon-menu-down dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></span>
+				<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="">
+					<li><a href="http://learn.codingdojo.com/m/130/6668/48262#" data-toggle="modal" data-target=".new_edit_module_modal" class="dropdown_edit_module_btn">Edit</a></li>
+					<li><a href="http://learn.codingdojo.com/m/130/6668/48262#" class="dropdown_duplicate_module_btn">Duplicate</a></li>
+					<li><a href="http://learn.codingdojo.com/m/130/6668/48262#" class="dropdown_delete_module_btn">Delete</a></li>
+				</ul>
+			</div>
+		</li>
+	</ul>
+
+	<ul class="hidden hidden_question_option_list">
+		<li class="quiz_option_item">
+			<span class="glyphicon glyphicon-th tester"></span>
+			<span class="glyphicon glyphicon-remove-sign delete_quiz_option_item"></span>
+			<input type="radio" name="quiz_radio_option_1" id="quiz_radio_option_1_1" class="quiz_radio_option hidden">
+			<label for="quiz_radio_option_1_1">
+				<span class="radio_marker">
+					<span class="marker"></span>
+				</span>
+			</label>
+
+			<input type="text" name="question_option_input" class="question_option_input">
+		</li>
+	</ul>
+
+	<ul class="hidden hidden_to_do_list">
+		<li class="to_do_item">
+			<span class="glyphicon glyphicon-th"></span>
+			<span class="glyphicon glyphicon-remove-sign delete_to_do_item"></span>
+			<div class="redactor_container">
+				<div class="redactor_click_to_edit">Work on the exercise above.</div>
+			</div>
+		</li>
+	</ul>
+
+	<ul class="hidden hidden_new_question_list">
+		<li class="question_item">
+			<div class="question_container">
+				<span class="glyphicon glyphicon-th"></span>
+				<span class="glyphicon glyphicon-remove-sign delete_question_item"></span>
+				<div class="redactor_container">
+					<div class="redactor_click_to_edit"></div>
+				</div>
+			</div>
+
+			<ul class="list-unstyled quiz_option_list">
+				<li class="add_new_quiz_option_item">
+					<input type="text" placeholder="Add a choice" class="add_new_quiz_choice_input">
+					<span class="glyphicon glyphicon-plus-sign add_new_quiz_choice"></span>
+				</li>
+			</ul>
+		</li>
+	</ul>
+
+	<!--  Lesson Module  -->
+	<div class="lesson_module_clone hidden">
+	    <div class="module_description">
+			<div class="module_redactor">
+		        <h1 class="module_title_content"></h1>
+			</div>
+	    </div>
+	</div>
+
+    <!-- Quiz Module -->
+	<div class="quiz_module_clone hidden">
+		<div class="quiz_description_block">
+			<div class="module_redactor"> 
+				<h1 class="module_title_content">Quiz</h1> 
+
+			</div>
+		</div> 	
+		<div class="quiz_questions_block hidden">
+		 	<div class="quiz_results">
+		 		<h4>Quiz Results</h4>
+		 		<table class="quiz_result_table table">
+		 			<thead>
+		 				<tr> 
+		 					<th class="quiz_result_header">#</th>
+		 					<th class="quiz_result_header">Date Took</th>
+		 					<th class="quiz_result_header">Minutes Spent</th>
+		 					<th class="quiz_result_header">Score</th> 					                 
+		 				</tr> 					               
+		 			</thead> 
+		 			<tbody>
+		 				<tr>
+		 					<td>1</td>
+		 					<td>March 31, 2014 (Monday)</td>
+		 					<td>2</td>
+		 					<td><a href="javascript:void(0);" class="display_quiz_result" data-quiz-title="Quiz" data-id="6121">80.00% (4/5)</a></td>
+		 				</tr>          
+	 				</tbody> 					            
+	 			</table> 
+
+	 			<div id="retake_quiz" class="btn btn-primary">Retake Quiz</div>
+
+	 		</div> 	
+	 		<div class="quiz_instructions">
+	 			<button id="start_quiz" class="btn btn-primary">Start Quiz</button>
+	 		</div>
+
+	 		<form action="http://learn.codingdojo.com/students/submit_quiz" method="post" class="form_submit_quiz">
+	 		 	<h4>Quiz</h4>
+	 		 	<ol>
+	 		 	 	<li class="quiz_item">
+	 		 	 		<span class="question_description">	It is the main markup language for creating web pages and other information that can be displayed in a web browser. </span>
+	 		 	 		<input type="hidden" name="questions[1]" value="It is the main markup language for creating web pages and other information that can be displayed in a web browser.">
+	 		 	 		<ul>
+	 		 	 			<li>
+	 		 	 				<input type="radio" value="0" id="quiz_radio_option_1_1" name="choices[1][is_answer]">
+	 		 	 				<label class="choice" for="quiz_radio_option_1_1">DOCTYPE</label>
+	 		 	 			</li>
+							<li>
+							 	<input type="radio" value="0" id="quiz_radio_option_1_2" name="choices[1][is_answer]">
+							 	<label class="choice" for="quiz_radio_option_1_2">HTML</label>
+							</li>
+							<li>
+								<input type="radio" value="0" id="quiz_radio_option_1_3" name="choices[1][is_answer]">
+								<label class="choice" for="quiz_radio_option_1_3">Web Pages</label>
+							</li>
+						</ul> 
+					</li>
+					<li class="quiz_item">
+						<span class="question_description">Some tags normally come in pairs. But there are some that do not need pairs. Which of the following tag does not need a closing pair tag?</span>
+						<input type="hidden" name="questions[3]" value="Some tags normally come in pairs. But there are some that do not need pairs. Which of the following tag does not need a closing pair tag?">
+						<ul>
+							<li>
+								<input type="radio" value="0" id="quiz_radio_option_2_1" name="choices[2][is_answer]">
+								<label class="choice" for="quiz_radio_option_2_1">head</label>
+							</li>
+							<li>
+								<input type="radio" value="0" id="quiz_radio_option_2_2" name="choices[2][is_answer]">
+								<label class="choice" for="quiz_radio_option_2_2">input</label>
+							</li>
+							<li>
+								<input type="radio" value="0" id="quiz_radio_option_2_3" name="choices[2][is_answer]">
+								<label class="choice" for="quiz_radio_option_2_3">table</label>
+							</li> 
+						</ul>
+					</li>
+				</ol>
+				<input type="submit" class="btn btn-primary" id="submit_quiz_button" value=" Submit ">
+			</form>
+			<div class="clear"></div>
+		</div>
+	</div>
+
+	<div class="dropup language_rainbow_dropup hidden">
+	  <a href="http://learn.codingdojo.com/m/130/6668/48262#" class="selected_rainbow_option html_rainbow_option" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+		<ul class="dropdown-menu list-unstyled language_rainbow_option_list">
+			<li class="language_rainbow_option_item">
+				<a href="http://learn.codingdojo.com/m/130/6668/48262#" class="html_rainbow_option" data-option-language="html"></a>
+			</li>
+			<li class="language_rainbow_option_item">
+				<a href="http://learn.codingdojo.com/m/130/6668/48262#" class="css_rainbow_option" data-option-language="css"></a>
+			</li>
+			<li class="language_rainbow_option_item">
+				<a href="http://learn.codingdojo.com/m/130/6668/48262#" class="javascript_rainbow_option" data-option-language="javascript"></a>
+			</li>
+			<li class="language_rainbow_option_item">
+				<a href="http://learn.codingdojo.com/m/130/6668/48262#" class="python_rainbow_option" data-option-language="python"></a>
+			</li>
+			<li class="language_rainbow_option_item">
+				<a href="http://learn.codingdojo.com/m/130/6668/48262#" class="ruby_rainbow_option" data-option-language="ruby"></a>
+			</li>
+			<li class="language_rainbow_option_item">
+				<a href="http://learn.codingdojo.com/m/130/6668/48262#" class="java_rainbow_option" data-option-language="java"></a>
+			</li>
+			<li class="language_rainbow_option_item">
+				<a href="http://learn.codingdojo.com/m/130/6668/48262#" class="php_rainbow_option" data-option-language="php"></a>
+			</li>
+			<li class="language_rainbow_option_item">
+				<a href="http://learn.codingdojo.com/m/130/6668/48262#" class="coffeescript_rainbow_option" data-option-language="coffeescript"></a>
+			</li>
+			<li class="language_rainbow_option_item">
+				<a href="http://learn.codingdojo.com/m/130/6668/48262#" class="c_sharp_rainbow_option" data-option-language="c_sharp"></a>
+			</li>
+		</ul>
+	</div>
+	<div id="alert_modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+		<div class="modal-dialog modal-sm" role="document">
+			<div class="modal-content">
+				<div class="content save_successfully_content hidden">
+					<span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+					<h1>Saving Successfully</h1>
+					<a href="http://learn.codingdojo.com/m/130/6668/48262#" class="btn form-control" data-dismiss="modal">OK</a>
+				</div>
+				<div class="content failed_to_save_content hidden">
+					<span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+					<h1>Saving Failed</h1>
+					<a href="http://learn.codingdojo.com/m/130/6668/48262#" class="btn form-control" data-dismiss="modal">OK</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="page_warning_modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+		<div class="modal-dialog modal-sm" role="document">
+			<div class="modal-content">
+				<div class="modal_header"><h4>Leave page?</h4></div>
+				<div class="modal_body">
+					<p>You haven't save your changes. Do you want to leave without saving?</p>
+					<a href="http://learn.codingdojo.com/m/130/6668/48262#" class="btn btn-default leave_btn">Leave</a>
+					<a href="http://learn.codingdojo.com/m/130/6668/48262#" class="btn btn-primary save_module_btn" data-dismiss="modal">Save</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<!-- YOUTUBE API -->
+<script type="text/javascript">
+	var tag = document.createElement('script');
+	tag.id = 'iframe-demo';
+	tag.src = 'https://www.youtube.com/iframe_api';
+	var firstScriptTag = document.getElementsByTagName('script')[0];
+	firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+	var player;
+	if (($('iframe').attr('src').indexOf("youtube")) != -1) {
+		function onYouTubeIframeAPIReady() {
+		    for(yt_video in yt_videos) {
+				console.log(yt_videos[yt_video])
+			    player = new YT.Player(yt_videos[yt_video], {
+			        events: {
+			        	'onStateChange': onPlayerStateChange
+			        }
+			    });
+			}
+		}
+
+		function onPlayerStateChange(event) {
+			console.log(event.data);
+			if(event.data == 1) {
+				if(typeof save_activity_log == 'function') {
+					save_activity_log(1.1, null);
+				}
+			} else if (event.data == 2) {
+				if(typeof save_activity_log == 'function') {
+					save_activity_log(1.2, null);
+				}
+			}
+		}
+	}
+</script>
+
+    <script type="text/javascript">
+		
+		var last_date_activity;
+		var is_io_request = false;
+
+        var io = io.connect('https://learn.codingdojo.com:8787', {force_connection: true, path: '/app1socket'});
+        var pair_hangout = false;
+        var admin_as_student = "";
+       
+        io.on("error", function(){
+            console.log('Failed connecting to node js server.');
+        });
+       	
+       	// USER ACTIVITY TRACKING
+	        io.emit("connect", { user_activity_session_id: "1728166" }, function(){
+	            console.log("Connecting to socket.io");
+	        });
+
+	        io.on("save_last_active_date", function(data){
+	        	last_date_activity = data.last_active_date;
+
+	             $(document).on("mousemove", function() {
+		            var date_now = new Date();
+		            var mouse_move_minute = (date_now.getTime() - last_date_activity) / 1000;
+
+		            // CHECK UPDATING OF LAST DATE ACTIVITY (PING TO NODE)
+		            if(mouse_move_minute >= 60 && is_io_request == false) {
+		            	is_io_request = true;
+		            	io.emit("update_last_active_data", { last_date_activity: date_now.getTime(), mouse_move_minute: mouse_move_minute }, function(data){
+		            		
+		            		if(data.expired == true) {
+		            			last_date_activity = data.last_active_date;
+
+		            			$.post('/update_session', function(session_result) {
+		            				// Refresh Page
+					    			// params_data.end_session_page = 1;
+									// location.reload();
+
+					            	// USER PAGE VIEWS TRACKING
+					    			params_data.end_session_page = 1;
+									params_data.user_session_page_id = user_session_page_id;
+
+									$.post('/create_new_session_page', params_data, function(result) { 
+										is_io_request = false;
+										user_session_page_id = result.user_session_page_id;
+									}, "json");
+									
+					            }, "json");
+		            		} else {
+			            		is_io_request = false;
+			            		last_date_activity = data.last_active_date;
+		            		}
+				        });
+		            }
+
+		            // console.log("check_mouse_move_minute -> ", mouse_move_minute);
+		        });
+	        });
+
+        if(admin_as_student != "true"){
+            io.on('server:logout', function(){
+                io.emit("student:signout");
+
+                $.ajax({
+                    url: "/before_signout/",
+                    type: "get",
+                    success: function(values) {
+                        if(values.status){
+                            window.location.href = "/signout";
+                        }
+                    }
+                });
+            });
+        }
+
+        $(document).on('ready page:load', function (){
+            io.on('need_signin', function(socket_data) {
+            	io.emit('student:signin', {user_information: {"id":36572,"first_name":"jancy","last_name":"joseph","email":"jancyjoseph@gmail.com","image_url":"https://s3.amazonaws.com/General_V88/boomyeah2015/codingdojo/user36572/profile_pic/jancy-red-1.png?1586445803","alternate_email":null,"current_stack_id":130,"current_stack_schedule_id":1442,"track_access_level_id":1,"created_at":"2020-02-06T19:22:46.000Z","user_level":1,"applicant_id":93391,"is_automated":null,"updated_at":"2020-05-28T14:11:08.852Z","last_visited_url":"/m/130/6668/","last_used_filter":null,"is_course_editor":null,"access_expiration":"2020-11-29T00:00:00.000Z","first_logged_in":null,"graduation_flag":null,"graduation_flag_created_at":null}, ip_address: $("#page_info input:nth-child(6)").val(), device: navigator.userAgent}, function(data){
+            		new_track();
+            	});
+            });
+
+            if(admin_as_student != "true"){
+                io.on('server:warning_duplicate_user', function(data){
+                    console.log("warning!!");
+                    io.emit("track:logout_duplicate", data);
+                });
+            }
+
+            function new_track(){
+            	io.emit('track:new', {
+    	        	url: $("#page_info input:nth-child(1)").val(),
+    	        	track_id: $("#page_info input:nth-child(2)").val(),
+    	        	course_id: $("#page_info input:nth-child(3)").val(),
+    	        	chapter_id: $("#page_info input:nth-child(4)").val(),
+    	        	module_id: $("#page_info input:nth-child(5)").val(),
+    	        	ip_address: $("#page_info input:nth-child(6)").val()
+    	        });
+            }
+
+            new_track();
+
+            $("#logout_button").click(function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                io.emit("student:signout");
+                window.location.href = "/signout";
+            });
+
+            io.on("new_chat_message", function(new_message){
+                display_sent_chat_message(new_message);
+            });
+
+            io.on("send_new_message", function(message){
+                display_received_chat_message(message);
+            });
+
+            io.on('make_user_unavailable', function(call_information){
+                make_user_unavailable(call_information);
+            });
+
+            io.on('make_user_available', function(user){
+                make_user_available(user);
+            });
+
+            io.on("invite_student", function(call_information){
+                display_call_request(call_information);
+            });
+
+        });
+    </script> 
+<iframe id="intercom-frame" style="position: absolute !important; opacity: 0 !important; width: 1px !important; height: 1px !important; top: 0 !important; left: 0 !important; border: none !important; display: block !important; z-index: -1 !important; pointer-events: none;" aria-hidden="true" tabindex="-1" title="Intercom" src="./Deployment _ MERN Deployment_files/saved_resource.html"></iframe><div class="intercom-lightweight-app" aria-live="polite"><style id="intercom-lightweight-app-style">
+  @keyframes intercom-lightweight-app-launcher {
+    from {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes intercom-lightweight-app-gradient {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes intercom-lightweight-app-messenger {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .intercom-lightweight-app {
+    position: fixed;
+    z-index: 2147483000;
+    width: 0;
+    height: 0;
+    font-family: intercom-font, "Helvetica Neue", "Apple Color Emoji", Helvetica, Arial, sans-serif;
+  }
+
+  .intercom-lightweight-app-gradient {
+    position: fixed;
+    z-index: 2147483001;
+    width: 500px;
+    height: 500px;
+    bottom: 0;
+    right: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse at bottom right,
+      rgba(29, 39, 54, 0.16) 0%,
+      rgba(29, 39, 54, 0) 72%);
+    animation: intercom-lightweight-app-gradient 200ms ease-out;
+  }
+
+  .intercom-lightweight-app-launcher {
+    position: fixed;
+    z-index: 2147483002;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #06aae2;
+    cursor: pointer;
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.06), 0 2px 32px 0 rgba(0, 0, 0, 0.16);
+    animation: intercom-lightweight-app-launcher 250ms ease;
+  }
+
+  .intercom-lightweight-app-launcher:focus {
+    outline: none;
+    
+  }
+
+  .intercom-lightweight-app-launcher-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    transition: transform 100ms linear, opacity 80ms linear;
+  }
+
+  .intercom-lightweight-app-launcher-icon-open {
+    
+        opacity: 1;
+        transform: rotate(0deg) scale(1);
+      
+  }
+
+  .intercom-lightweight-app-launcher-icon-open svg {
+    width: 28px;
+    height: 32px;
+  }
+
+  .intercom-lightweight-app-launcher-icon-open svg path {
+    fill: rgb(255, 255, 255);
+  }
+
+  .intercom-lightweight-app-launcher-icon-self-serve {
+    
+        opacity: 1;
+        transform: rotate(0deg) scale(1);
+      
+  }
+
+  .intercom-lightweight-app-launcher-icon-self-serve svg {
+    height: 56px;
+  }
+
+  .intercom-lightweight-app-launcher-icon-self-serve svg path {
+    fill: rgb(255, 255, 255);
+  }
+
+  .intercom-lightweight-app-launcher-custom-icon-open {
+    max-height: 36px;
+    max-width: 36px;
+    
+        opacity: 1;
+        transform: rotate(0deg) scale(1);
+      
+  }
+
+  .intercom-lightweight-app-launcher-icon-minimize {
+    
+        opacity: 0;
+        transform: rotate(-60deg) scale(0);
+      
+  }
+
+  .intercom-lightweight-app-launcher-icon-minimize svg {
+    width: 16px;
+  }
+
+  .intercom-lightweight-app-launcher-icon-minimize svg path {
+    fill: rgb(255, 255, 255);
+  }
+
+  .intercom-lightweight-app-messenger {
+    position: fixed;
+    z-index: 2147483002;
+    overflow: hidden;
+    background-color: white;
+    animation: intercom-lightweight-app-messenger 250ms ease-out;
+    
+        width: 376px;
+        height: calc(100% - 40px);
+        max-height: 704px;
+        min-height: 250px;
+        right: 20px;
+        bottom: 20px;
+        box-shadow: 0 5px 40px rgba(0,0,0,0.16);
+        border-radius: 8px;
+      
+  }
+
+  .intercom-lightweight-app-messenger-header {
+    height: 75px;
+    background: linear-gradient(
+      135deg,
+      rgb(255, 255, 255) 0%,
+      rgb(204, 204, 204) 100%
+    );
+  }
+
+  @media print {
+    .intercom-lightweight-app {
+      display: none;
+    }
+  }
+</style></div><div class="popover fade bottom in popover_reported_mistake" role="tooltip" id="popover201169" style="top: 968.1px; left: 421.488px; display: block;"><div class="arrow" style="left: 0.235849%;"></div><h3 class="popover-title" style="display: none;"></h3><div class="popover-content">
+		<span class="report_mistake_label">Report a mistake</span>
+		<form id="report_mistake_container" action="http://learn.codingdojo.com/report_mistake">
+			<h5>Report a mistake</h5>
+			<input type="hidden" name="chapter_module_id" value="48262">
+			<input type="hidden" name="authenticity_token" value="lSEy3SfDy7QkSGoa09fnaNHoPnXg+hZ3c9YZU/IIO9w=">
+			<input type="hidden" name="course_id" value="2120">
+			<input type="hidden" name="chapter_id" value="6668">
+			<input type="hidden" name="track_id" value="130">
+			<textarea name="report_mistake_textarea" id="report_mistake_textarea" rows="5" placeholder="Tell us what&#39;s wrong"></textarea>
+			<input type="submit" value="SUBMIT" class="btn btn-primary btn-block">
+		</form>
+	</div></div></body></html>
