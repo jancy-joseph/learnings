@@ -1,4 +1,4 @@
 function CountCharacters(str){
-    if( str == null|| ):
+    if( str == null|| ): 
 
 }
