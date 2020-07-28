@@ -1,0 +1,11 @@
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\assignments\Fundamentals-1\obj\Debug\netcoreapp2.2\Fundamentals-1.csprojAssemblyReference.cache
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\assignments\Fundamentals-1\obj\Debug\netcoreapp2.2\Fundamentals-1.csproj.CoreCompileInputs.cache
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\assignments\Fundamentals-1\obj\Debug\netcoreapp2.2\Fundamentals-1.AssemblyInfoInputs.cache
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\assignments\Fundamentals-1\obj\Debug\netcoreapp2.2\Fundamentals-1.AssemblyInfo.cs
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\assignments\Fundamentals-1\bin\Debug\netcoreapp2.2\Fundamentals-1.deps.json
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\assignments\Fundamentals-1\bin\Debug\netcoreapp2.2\Fundamentals-1.runtimeconfig.json
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\assignments\Fundamentals-1\bin\Debug\netcoreapp2.2\Fundamentals-1.runtimeconfig.dev.json
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\assignments\Fundamentals-1\bin\Debug\netcoreapp2.2\Fundamentals-1.dll
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\assignments\Fundamentals-1\bin\Debug\netcoreapp2.2\Fundamentals-1.pdb
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\assignments\Fundamentals-1\obj\Debug\netcoreapp2.2\Fundamentals-1.dll
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\assignments\Fundamentals-1\obj\Debug\netcoreapp2.2\Fundamentals-1.pdb

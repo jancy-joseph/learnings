@@ -1,0 +1,42 @@
+PS C:\Users\jancy\Desktop\Coding_Dojo\CSharp> mkdir FirstCSharp
+
+
+    Directory: C:\Users\jancy\Desktop\Coding_Dojo\CSharp
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----         4/6/2020   3:23 PM                FirstCSharp
+
+
+PS C:\Users\jancy\Desktop\Coding_Dojo\CSharp> cd .\FirstCSharp\
+PS C:\Users\jancy\Desktop\Coding_Dojo\CSharp\FirstCSharp> ls
+PS C:\Users\jancy\Desktop\Coding_Dojo\CSharp\FirstCSharp>
+PS C:\Users\jancy\Desktop\Coding_Dojo\CSharp\FirstCSharp>
+PS C:\Users\jancy\Desktop\Coding_Dojo\CSharp\FirstCSharp>
+PS C:\Users\jancy\Desktop\Coding_Dojo\CSharp\FirstCSharp> ls
+PS C:\Users\jancy\Desktop\Coding_Dojo\CSharp\FirstCSharp> pwd
+
+Path
+----
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\FirstCSharp
+
+
+PS C:\Users\jancy\Desktop\Coding_Dojo\CSharp\FirstCSharp> dotnet new console
+Getting ready...
+The template "Console Application" was created successfully.
+
+Processing post-creation actions...
+Running 'dotnet restore' on C:\Users\jancy\Desktop\Coding_Dojo\CSharp\FirstCSharp\FirstCSharp.csproj...
+  Restoring packages for C:\Users\jancy\Desktop\Coding_Dojo\CSharp\FirstCSharp\FirstCSharp.csproj...
+  Generating MSBuild file C:\Users\jancy\Desktop\Coding_Dojo\CSharp\FirstCSharp\obj\FirstCSharp.csproj.nuget.g.props.
+  Generating MSBuild file C:\Users\jancy\Desktop\Coding_Dojo\CSharp\FirstCSharp\obj\FirstCSharp.csproj.nuget.g.targets.
+  Restore completed in 970.71 ms for C:\Users\jancy\Desktop\Coding_Dojo\CSharp\FirstCSharp\FirstCSharp.csproj.
+
+Restore succeeded.
+
+PS C:\Users\jancy\Desktop\Coding_Dojo\CSharp\FirstCSharp> dotnet run
+Hello World!
+PS C:\Users\jancy\Desktop\Coding_Dojo\CSharp\FirstCSharp> dotnet --version
+2.2.107
+PS C:\Users\jancy\Desktop\Coding_Dojo\CSharp\FirstCSharp>

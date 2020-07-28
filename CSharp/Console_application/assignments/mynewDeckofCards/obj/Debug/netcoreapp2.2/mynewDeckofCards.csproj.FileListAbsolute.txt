@@ -1,0 +1,11 @@
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\assignments\mynewDeckofCards\bin\Debug\netcoreapp2.2\mynewDeckofCards.deps.json
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\assignments\mynewDeckofCards\bin\Debug\netcoreapp2.2\mynewDeckofCards.runtimeconfig.json
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\assignments\mynewDeckofCards\bin\Debug\netcoreapp2.2\mynewDeckofCards.runtimeconfig.dev.json
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\assignments\mynewDeckofCards\bin\Debug\netcoreapp2.2\mynewDeckofCards.dll
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\assignments\mynewDeckofCards\bin\Debug\netcoreapp2.2\mynewDeckofCards.pdb
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\assignments\mynewDeckofCards\obj\Debug\netcoreapp2.2\mynewDeckofCards.csprojAssemblyReference.cache
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\assignments\mynewDeckofCards\obj\Debug\netcoreapp2.2\mynewDeckofCards.csproj.CoreCompileInputs.cache
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\assignments\mynewDeckofCards\obj\Debug\netcoreapp2.2\mynewDeckofCards.AssemblyInfoInputs.cache
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\assignments\mynewDeckofCards\obj\Debug\netcoreapp2.2\mynewDeckofCards.AssemblyInfo.cs
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\assignments\mynewDeckofCards\obj\Debug\netcoreapp2.2\mynewDeckofCards.dll
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\assignments\mynewDeckofCards\obj\Debug\netcoreapp2.2\mynewDeckofCards.pdb

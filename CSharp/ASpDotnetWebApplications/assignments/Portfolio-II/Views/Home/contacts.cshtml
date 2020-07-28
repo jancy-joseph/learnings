@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A web Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+    <div class ="container">
+        <div class="row text-center">
+            <div class="col-sm-2">
+                <a href="/">Home</a>
+            </div>
+            <div class="col-sm-2">
+                <a href="/projects">Projects</a>
+            </div>
+            <div class="col-sm-2">
+                <a href="/contacts">Contact</a>
+            </div>
+        </div>
+        <div class="row text-center">
+            <h2>Contact Me!</h2>
+        </div>
+        <div class="row">
+            <div class="row offset-5 text-left">
+                <p>Message</p>
+            </div>
+            <div class ="row">
+                <form action="" method="POST">
+                {% csrf_token %}
+                <div class ="row d-block"> 
+                    <div class="col-sm-5 d-inline-block">
+                        <div class="form-group row">
+                            <label class="col-sm-5" for="Name">Name</label>
+                            <input class="col-sm-5 form-control" type="text" name="Name">
+                            <label class="col-sm-5" for="Email">Email</label>
+                            <input class="col-sm-5 form-control" type="text" name="Email">
+                        </div>
+                    </div>
+                    <div class="col-sm-5 d-inline-block">
+                        <div class="form-group row">
+                            <textarea class="col-sm-12 form-control w-100 h-100" type="text" name="message"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-5 offset-sm-6 align-right d-inline-block">
+                        <input type="submit" value="Send" class="col-sm-4 btn btn-primary ">
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+@model DashboardWrapper
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Hi @Model.LoggedUser.Name</h2>
+        </div>
+        <div class="col">
+            <a href="/">Logout</a>
+        </div>
+    </div>
+    <div class="row">
+        <form asp-action="addPost" asp-controller="Home" asp-method="post">
+        <div class="form-group row">
+            <textarea  class ="col-sm-12 form-control h-100" type=text name="newIdea.Text">
+            </textarea>
+        </div>
+        <div class="form-group row">
+            <input type="submit" value="Add Idea!">
+        </div>
+        </form>
+    </div>
+    @{
+        @foreach(Idea nIdea in Model.AllIdeas)
+        {
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="form-group row">
+                    <label  asp-for="newIdea.User.Name">@nIdea.User.Name says:</label>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="form-group row">
+                    <textarea  class ="col-sm-12 form-control h-100" type=text name="nIdea.Text">@nIdea.Text
+                    </textarea>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-4">
+                        <form asp-action="addLike" asp-route-IdeaId="@nIdea.IdeaId"asp-controller="Home" asp-method="post">
+                        <div class="form-group row">
+                            <input type="submit" value="Like!">
+                        </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-8">  
+                        <p><a href="">@nIdea.Likes.Count</a> Like this!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                @if(@nIdea.User.Name == @Model.LoggedUser.Name )
+                {
+                    <a>Delete!</a>
+                }
+            </div>
+        </div>
+        }
+    }
+</div>
+</body>
+</html>

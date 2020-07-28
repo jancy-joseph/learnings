@@ -1,0 +1,69 @@
+@model ShowActivityWrapper
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+<body>
+   <div class="container">
+        <div class="row">
+        <div class="col -sm-8">
+            <h2>Dojo Activity Center</h2>
+        </div>
+        <div class="col-sm-2">
+            <h2>Hi @Model.LoggedUser.FirstName</h2>
+        </div>
+        <div class="col-sm-2">
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+       <div class="row">
+           <div class="col">
+               @Model.newActivity.Title
+           </div>
+           <div class="col">
+             @{
+                @if(@Model.newActivity.UserId == @Model.LoggedUser.UserId)
+                {
+                    <form asp-action="deleteActivity"  asp-controller="Home" asp-route-ActivityId="@Model.newActivity.ActivityId" method="POST">
+                        <button type="submit">Delete</button>
+                    </form>
+
+                }
+                else if(@Model.newActivity.UsersInActivities.FirstOrDefault(x=>x.UserId == @Model.LoggedUser.UserId)!=null)
+                {
+                    <form asp-action="LeaveActivity" asp-controller="Home" asp-route-ActivityId="@Model.newActivity.ActivityId" method="POST">
+                        <button type="submit">Leave</button>
+                    </form>
+
+                }
+                else
+                {
+                    <form asp-action="JoinActivity"   asp-controller="Home" asp-route-ActivityId="@Model.newActivity.ActivityId" method="POST">
+                            <button type="submit">Join</button>
+                    </form>   
+                }
+            }
+           </div>
+       </div>
+       <div class="row">
+           <p>Event Corodinator : @Model.newActivity.User.FirstName</p>
+       </div>
+       <div class="row">
+           <p> Description:@Model.newActivity.Description</p>
+       </div>
+       <div class="row">
+           <ul>
+               @foreach(var usersjoined in @Model.newActivity.UsersInActivities)
+               {
+                   <li>@usersjoined.User.FirstName @usersjoined.User.LastName</li>
+               }
+           </ul>
+       </div>
+   </div> 
+</body>
+</html>

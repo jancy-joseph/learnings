@@ -1,0 +1,57 @@
+@model DojoUserWrapper
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+      <main>
+        <div class="jumbotron">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-5">
+                         <form asp-controller="Home" asp-action="dojoRegister"  asp-method="post">
+                            <div class="form-group row">
+                                <span class="col-sm-12" asp-validation-for="dojo.FullName"></span>
+                                <label class="col-sm-4" asp-for="dojo.FullName"></label>
+                                <input type ="text" class="col-sm-8 form-control" asp-for="dojo.FullName">
+                            </div>
+                            <div class="form-group row">
+                                <span class="col-sm-12" asp-validation-for="dojo.DojoLocation"></span>
+                                <label class="col-sm-4" asp-for="dojo.DojoLocation"></label>
+                                <select class="col-sm-8 form-control" asp-for="dojo.DojoLocation">
+                                    @foreach(var i in @Model.dojo.DojoLocation)
+                                    {
+                                        <option value ="@i">@i</option>
+                                    }                                  
+                                </select>
+                            </div>
+                            <div class="form-group row">
+                                <span class="col-sm-12" asp-validation-for="dojo.FavoriteLanguage"></span>
+                                <label class="col-sm-4" asp-for="dojo.FavoriteLanguage"></label>
+                                <select class="col-sm-8 form-control" asp-for="dojo.FavoriteLanguage">
+                                    @foreach(var i in @Model.dojo.FavoriteLanguage)
+                                    {
+                                        <option value ="@i">@i</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group row">
+                                <span class="col-sm-12" asp-validation-for="dojo.Comments"></span>
+                                <label class="col-sm-4" asp-for="dojo.Comments"></label>
+                                <textarea class="col-sm-8 form-control" asp-for="dojo.Comments"></textarea>
+                            </div>
+                            <div class="form-group row">
+                                <input class ="col-sm-4" type="submit" value="DojoRegister">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>   
+
+</body>
+</html>

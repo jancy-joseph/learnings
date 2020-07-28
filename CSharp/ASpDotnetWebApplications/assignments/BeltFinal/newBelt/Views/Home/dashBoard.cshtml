@@ -1,0 +1,94 @@
+@model DashboardWrapper
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col -sm-8">
+            <h2>Dojo Activity Center</h2>
+        </div>
+        <div class="col-sm-2">
+            <h2>Hi @Model.LoggedUser.FirstName</h2>
+        </div>
+        <div class="col-sm-2">
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+    <div class="row">
+       <table class="table table-striped">
+            <tr>
+                <th>Activity</th>
+                <th>Date and Time</th>
+                <th>Duration</th>
+                <th>Event Coordinator</th>
+                <th>Number of Participants</th>
+                <th>Action</th>
+            </tr>
+            @foreach(var l in @Model.AllActivities)
+            {
+                <tr>    
+                    <td>@l.Title</td>
+                    <td>@l.ActivityDate.ToString("MM/dd") @@ @l.TimeOfEvent.ToString("hh:mm tt")</td>
+                    <td>@l.Duration @l.DurationUnits</td>
+                    @if(@l.User!=null)
+                    {
+                    <td>@l.User.FirstName</td>
+                    }
+                    else
+                    {
+                        <td>@l.UserId</td>
+                    }
+                     <td>@l.UsersInActivities.Count</td> 
+                    @* <td>@l.TotalNoOfMembers</td> *@
+                    @{
+                        @if(l.UserId == @Model.LoggedUser.UserId)
+                        {
+                            <form asp-action="deleteActivity"  asp-controller="Home" asp-route-ActivityId="@l.ActivityId" method="POST">
+                                <td><button type="submit">Delete</button></td>
+                            </form>
+
+                        }
+                        else {
+                        
+                            if(l.UsersInActivities.SingleOrDefault(x=>x.UserId == @Model.LoggedUser.UserId)==null)
+                            {
+                                
+                           
+                                <form asp-action="joinActivity" asp-controller="Home" asp-route-ActivityId="@l.ActivityId" method="POST">
+                                    <td> <button type="submit">Join</button></td>
+                                </form>
+                            
+                                
+                            }                        
+                            else 
+                            {
+
+                                <form asp-action="leaveActivity"  asp-controller="Home" asp-route-ActivityId="@l.ActivityId" method="POST">
+                                        <td> <button type="submit">Leave</button></td>
+                                </form>
+                       
+
+                            }   
+
+                        }
+                        
+
+
+                    }
+                </tr>
+            }
+    </table>
+    <div class="row">
+             <a href="addNewActivity">Add Activiity</a>
+    </div>
+
+</div>
+</body>
+</html>

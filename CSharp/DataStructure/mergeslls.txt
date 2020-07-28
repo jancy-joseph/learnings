@@ -1,0 +1,39 @@
+ merge(list2) {
+
+        if (this.head == null) {
+            this.head = list2.head;
+            list2.head = null;
+            return this;
+        }
+
+        var walker = this.head;
+        var runner = this.head.next;
+
+        while(list2.head != null) {
+            var xfer = list2.removeFromFront();
+
+            if (runner == null) {
+                walker.next = xfer;
+                walker = xfer;
+                continue;
+            }
+            
+            if (xfer.value > runner.value) {
+                xfer.next = runner.next;
+                runner.next = xfer;
+                walker = runner;
+                runner = runner.next;
+            } else {
+                walker.next = xfer;                
+                xfer.next = runner;
+                walker = xfer;
+            }
+        }
+        return this;
+    }
+    mergeK(arrayoflists) {
+        for(let i=0; i<arrayoflists.length; i++)
+        {
+            this.merge(arrayofLists[i]);
+        }
+    }

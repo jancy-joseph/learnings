@@ -1,0 +1,72 @@
+@model NewActivityWrapper
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add new Activity</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="container">
+        <div class="form-group row">
+            <div class="col -sm-8">
+                <h2>Dojo Activity Center</h2>
+            </div>
+            <div class="col-sm-2">
+                <h2>Hi @Model.LoggedUser.FirstName</h2>
+            </div>
+            <div class="col-sm-2">
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+         <div class="form-group row">
+            <h3> Create An Activity!</h3> 
+        </div>
+        <form asp-action="createNewActivity" asp-controller="Home" asp-method="post">
+            <div class="form-group row">
+                <span class="col-sm-12" asp-validation-for="newActivity.Title"></span>
+                <label class="col-sm-4">Title: </label>
+                <input class="col-sm-8 form-control" asp-for="newActivity.Title">
+            </div>
+            <div class="form-group row">
+                <span class="col-sm-12" asp-validation-for="newActivity.ActivityDate"></span>
+                <label class="col-sm-4">Date: </label>
+                <input type=date class="col-sm-8 form-control" asp-for="newActivity.ActivityDate">
+            </div>
+            <div class="form-group row">
+                <span class="col-sm-12" asp-validation-for="newActivity.TimeOfEvent"></span>
+                <label class="col-sm-4">Time: </label>
+                <input class="col-sm-8 form-control" asp-for="newActivity.TimeOfEvent">
+            </div>
+            <div class="form-group row">
+                    <span class="col-sm-12" asp-validation-for="newActivity.Duration"></span>
+                    <label class="col-sm-4">Duration: </label>
+                    <input type=number class="col-sm-8 form-control" asp-for="newActivity.Duration">
+            </div> 
+            <div class="form-group row">
+                <label class="col-sm-4" asp-for="newActivity.DurationUnits"></label>
+                <select class="col-sm-8" asp-for="newActivity.DurationUnits">
+                        <option value="Hours">Hours</option>
+                        <option value="Minutes">Minutes</option>
+                        <option value="Days">Days</option>
+                        <option value="Hours">Hours</option>
+                </select>
+            </div>         
+            <div class="form-group row">
+                <span class="col-sm-12" asp-validation-for="newActivity.Description"></span>
+                <label class="col-sm-4">Description: </label>
+                <input class="col-sm-8 form-control" asp-for="newActivity.Description">
+            </div>
+            @* <div class="form-group row">
+                <span class="col-sm-12" asp-validation-for="newActivity.UserId"></span>
+                <input hidden class="col-sm-8 form-control" asp-for="newActivity.UserId" value="@Model.LoggedUser.UserId">
+            </div> *@
+             <div class="form-group row align-items-right">
+                 <input type="submit" value="Add Activity">
+            </div>
+        </form>
+    </div>
+</body>
+</html>

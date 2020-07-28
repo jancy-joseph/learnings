@@ -1,0 +1,67 @@
+class Queue {
+    constructor() {
+        this.queue = new SLList();
+    }
+
+    // For as many of these as you can, use combinations methods already in the SLList
+    
+    // write an enQueue method
+    enQueue(value) {
+        this.queue.addToBack(value);
+        return this;
+    }
+
+    // write a deQueue method
+    deQueue() {
+        this.queue.removeFromFront();
+        return this;
+    }
+// return the value of the front of the queue 
+    front() {
+        return this.queue.head.value;
+    }
+    
+    // write a method that determines whether the queue is empty or not
+    isEmpty() {
+        if (this.queue.head == null){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    // write a method that returns the size of the queue
+    size() {
+        if (this.queue.head == null){
+            return 0;
+        }
+        let count = 0;
+        let runner = this.queue.head;
+        while (runner != null){
+            count += 1;
+            runner = runner.next;
+        }
+        return count;
+    }
+
+    printList() {
+        this.queue.printList();
+    }
+}
+From Theary to Everyone:  10:13 AM
+// test out queue
+var q1 = new Queue();
+q1.enQueue(1);
+q1.enQueue(2);
+q1.enQueue(3);
+
+q1.printList();
+q1.deQueue();
+q1.printList();
+console.log(q1.size());
+console.log(q1.isEmpty());
+console.log(q1.front());
+q1.deQueue().deQueue();
+console.log(q1.isEmpty());
+console.log(q1.size());

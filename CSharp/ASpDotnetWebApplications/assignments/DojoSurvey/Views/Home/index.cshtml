@@ -1,0 +1,58 @@
+@model DojoSurvey.Models.Dojo
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dojo Survey</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+<body>
+@{
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="col-sm-12">
+                <form action="postandredirect" method="POST">
+                    @* {% csrf_token %} *@
+                    <input type="hidden" name="myform" value="1">
+                    <div class="form-group row">
+                        <label class="col-sm-4" for="Name">Your Name</label>
+                        <input class="col-sm-8 form-control" type="text" name="name">
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4" for="locate">Dojo Location</label>
+                        <select class="col-sm-8 form-control" name="locate">
+                            @foreach(var i in @Model.locate)
+                            {
+                            <option value ="@i">@i</option>
+                            }
+                        </select>   
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4" for="lang">Favourite Language</label>
+                        <select class="col-sm-8 form-control" name="lang">
+                            @foreach(var j in @Model.lang)
+                            {
+                            <option value="@j">@j</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4" for="comments">Comments(optional)</label>
+                        <textarea class="col-sm-12 form-control w-100 h-100" type="text" name="comments">
+                        </textarea>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-3"></div>
+                        <input type="submit" value="Register" class="col-sm-4 btn btn-primary">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+}
+</body>
+</html>

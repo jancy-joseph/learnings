@@ -1,0 +1,11 @@
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\VSCodedebugger\bin\Debug\netcoreapp2.2\VSCodedebugger.deps.json
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\VSCodedebugger\bin\Debug\netcoreapp2.2\VSCodedebugger.runtimeconfig.json
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\VSCodedebugger\bin\Debug\netcoreapp2.2\VSCodedebugger.runtimeconfig.dev.json
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\VSCodedebugger\bin\Debug\netcoreapp2.2\VSCodedebugger.dll
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\VSCodedebugger\bin\Debug\netcoreapp2.2\VSCodedebugger.pdb
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\VSCodedebugger\obj\Debug\netcoreapp2.2\VSCodedebugger.csprojAssemblyReference.cache
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\VSCodedebugger\obj\Debug\netcoreapp2.2\VSCodedebugger.csproj.CoreCompileInputs.cache
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\VSCodedebugger\obj\Debug\netcoreapp2.2\VSCodedebugger.AssemblyInfoInputs.cache
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\VSCodedebugger\obj\Debug\netcoreapp2.2\VSCodedebugger.AssemblyInfo.cs
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\VSCodedebugger\obj\Debug\netcoreapp2.2\VSCodedebugger.dll
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\VSCodedebugger\obj\Debug\netcoreapp2.2\VSCodedebugger.pdb

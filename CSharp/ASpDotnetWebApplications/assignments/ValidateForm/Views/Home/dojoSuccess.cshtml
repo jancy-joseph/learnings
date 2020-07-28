@@ -1,0 +1,33 @@
+@model DojoUserWrapper
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <div class="container">
+        <div class="row">
+            <p><u>Submitted info:</u></p>
+        </div>
+        <div class="row">
+            <label class="col-sm-4">Name:</label>
+            <label class ="col-sm-8">@Model.dojo.FullName</label>
+            @* User wrapper is faling here..due to null exception..need to revist *@
+        </div>
+            <div class="row">
+            <label class="col-sm-4" >Dojo Location:</label>
+            <label class ="col-sm-8" >@Model.dojo.DojoLocation</label>
+        </div>
+        <div class="row">
+            <label class="col-sm-4" >Favourite Language:</label>
+            <label class ="col-sm-8" >@Model.dojo.FavoriteLanguage</label>
+        </div>
+        <div class="row">
+            <label class="col-sm-4" >Comment:</label>
+            <label class ="col-sm-8" >@Model.dojo.Comments</label>
+        </div>
+    </div>    
+</body>
+</html>

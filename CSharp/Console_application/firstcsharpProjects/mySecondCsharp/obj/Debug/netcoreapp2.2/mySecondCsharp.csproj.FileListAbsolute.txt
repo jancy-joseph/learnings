@@ -1,0 +1,11 @@
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\mySecondCsharp\bin\Debug\netcoreapp2.2\mySecondCsharp.deps.json
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\mySecondCsharp\bin\Debug\netcoreapp2.2\mySecondCsharp.runtimeconfig.json
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\mySecondCsharp\bin\Debug\netcoreapp2.2\mySecondCsharp.runtimeconfig.dev.json
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\mySecondCsharp\bin\Debug\netcoreapp2.2\mySecondCsharp.dll
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\mySecondCsharp\bin\Debug\netcoreapp2.2\mySecondCsharp.pdb
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\mySecondCsharp\obj\Debug\netcoreapp2.2\mySecondCsharp.csprojAssemblyReference.cache
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\mySecondCsharp\obj\Debug\netcoreapp2.2\mySecondCsharp.csproj.CoreCompileInputs.cache
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\mySecondCsharp\obj\Debug\netcoreapp2.2\mySecondCsharp.AssemblyInfoInputs.cache
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\mySecondCsharp\obj\Debug\netcoreapp2.2\mySecondCsharp.AssemblyInfo.cs
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\mySecondCsharp\obj\Debug\netcoreapp2.2\mySecondCsharp.dll
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\mySecondCsharp\obj\Debug\netcoreapp2.2\mySecondCsharp.pdb

@@ -1,0 +1,11 @@
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\Console_application\threeSum\bin\Debug\netcoreapp2.2\threeSum.deps.json
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\Console_application\threeSum\bin\Debug\netcoreapp2.2\threeSum.runtimeconfig.json
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\Console_application\threeSum\bin\Debug\netcoreapp2.2\threeSum.runtimeconfig.dev.json
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\Console_application\threeSum\bin\Debug\netcoreapp2.2\threeSum.dll
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\Console_application\threeSum\bin\Debug\netcoreapp2.2\threeSum.pdb
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\Console_application\threeSum\obj\Debug\netcoreapp2.2\threeSum.csprojAssemblyReference.cache
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\Console_application\threeSum\obj\Debug\netcoreapp2.2\threeSum.csproj.CoreCompileInputs.cache
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\Console_application\threeSum\obj\Debug\netcoreapp2.2\threeSum.AssemblyInfoInputs.cache
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\Console_application\threeSum\obj\Debug\netcoreapp2.2\threeSum.AssemblyInfo.cs
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\Console_application\threeSum\obj\Debug\netcoreapp2.2\threeSum.dll
+C:\Users\jancy\Desktop\Coding_Dojo\CSharp\Console_application\threeSum\obj\Debug\netcoreapp2.2\threeSum.pdb

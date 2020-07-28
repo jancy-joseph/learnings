@@ -1,0 +1,62 @@
+
+class DLNode {
+    constructor(val) {
+        this.value = val;
+        this.next = null;
+        this.prev = null;
+    }
+}
+
+class DLList {
+    constructor() {
+        this.head = null;
+    }
+
+
+    // Push to the end of the current DLList
+    push(value) {
+	DLNode  newnode = DLNode(value);
+	if(this.head == null)
+	{
+		this.head = newnode;
+		return this;
+	}
+	else
+	{
+	runner =this.head;
+	while(runner.next!=null)
+	{
+	runner = runner.next;
+	}
+	runner.next = newnnode;
+	newnode.prev = runner;
+	}
+
+    }
+
+
+    // Remove the last element of the DLList
+    pop() {
+
+    }
+
+    
+    // Remove a specific value from a DLList
+    remove(value) {
+	
+	if runner.value == value 
+	{
+		if runner.next == null
+		{
+			this.head == null
+			return runner
+		}
+		else
+		{
+			this.head ==runner.next;
+			this.head.prev = null;
+			return runner
+		}
+
+    }
+}

@@ -1,0 +1,55 @@
+@model LoginUser
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark">
+            <ul class="col-sm-12 navbar-nav">
+                <li class=" col-sm-2 nav-item">
+                    <a class="nav-link" href="#">TestApp</a>
+                </li>
+                <li class="col-sm-8 nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="col-sm-2 nav-item">
+                    <a class="nav-link" href="#">Sign In</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="jumbotron">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <h2>Login</h2>
+                        <form asp-action="Login" asp-controller="Home" asp-method="post">
+                            <div class="form-group row">
+                                <span class="col-sm-12" asp-validation-for="LoginEmail"></span>
+                                <label class="col-sm-4">Email:</label>
+                                <input class ="col-sm-8 form-control" asp-for="LoginEmail">
+                            </div>
+                            <div class="form-group row">
+                                <span class="col-sm-12" asp-validation-for="LoginPassword"></span>
+                                <label class="col-sm-4">Password:</label>
+                                <input type = "password" class ="col-sm-8 form-control" asp-for="LoginPassword">
+                            </div>
+                            <div class="form-group row">
+                                <input class ="col-sm-4" type="submit" value="Login">
+                            </div>
+                        </form>
+                        <a href="Register">Don't have an account? Register</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
